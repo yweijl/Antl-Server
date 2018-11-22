@@ -1,8 +1,20 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20181120103028_init.cs" />
+    <Compile Remove="Migrations\20181120103105_Init.cs" />
+    <Compile Remove="Migrations\20181120105001_Init.cs" />
+    <Compile Remove="Migrations\20181120105408_Init.cs" />
+    <Compile Remove="Migrations\20181120110117_Init.cs" />
+    <Compile Remove="Migrations\20181120110829_Init.cs" />
+    <Compile Remove="Migrations\20181120124940_Init.cs" />
+    <Compile Remove="Migrations\20181120125209_Init.cs" />
+    <Compile Remove="Migrations\20181120125451_Init.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.1.6" />
@@ -16,6 +28,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Antl.WebServer.Entities\Antl.WebServer.Entities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Serilog.AspNetCore">
+      <HintPath>..\..\..\..\..\Users\weijl\.nuget\packages\serilog.aspnetcore\2.1.1\lib\netstandard2.0\Serilog.AspNetCore.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
