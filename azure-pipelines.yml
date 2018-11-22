@@ -16,4 +16,4 @@ steps:
   - task: DotNetCoreCLI@2
   inputs:
     #command: 'build' 
-    #projects: 'Antl.WebServer/AvansProjects.Antl.WebServer/Antl.WebServer.Api/Antl.WebServer.Api.csproj'
+    #projects: 'AvansProjects.Antl.WebServer/Antl.WebServer.Api/Antl.WebServer.Api.csproj'
