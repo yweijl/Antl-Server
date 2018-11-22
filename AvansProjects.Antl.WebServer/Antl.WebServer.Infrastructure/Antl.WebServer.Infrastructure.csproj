@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <RuntimeFrameworkVersion>2.1.6</RuntimeFrameworkVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,11 +30,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Antl.WebServer.Entities\Antl.WebServer.Entities.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Serilog.AspNetCore">
-      <HintPath>..\..\..\..\..\Users\weijl\.nuget\packages\serilog.aspnetcore\2.1.1\lib\netstandard2.0\Serilog.AspNetCore.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
 </Project>
