@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Antl.WebServer.Entities\Antl.WebServer.Entities.csproj" />
     <ProjectReference Include="..\Antl.WebServer.Infrastructure\Antl.WebServer.Infrastructure.csproj" />
   </ItemGroup>
 
