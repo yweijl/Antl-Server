@@ -53,7 +53,11 @@ namespace Antl.WebServer.Api
                 app.UseHsts();
             }
 
+
             app.UseHttpsRedirection();
+
+            app.UseAuthentication();
+
             app.UseMvc();
         }
     }
