@@ -36,6 +36,7 @@ namespace Antl.WebServer.Api
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddSingleton<ILoggerFactory, SerilogLoggerFactory>();
+            services.AddScoped<IEntity, ApplicationUser>();
 
         }
 
