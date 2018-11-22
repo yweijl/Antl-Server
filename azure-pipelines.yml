@@ -10,10 +10,5 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: dotnet build --configuration $(buildConfiguration)
+- script: dotnet build AvansProjects.Antl.WebServer/Antl.WebServer.Api/Antl.WebServer.Api.csproj --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
-
-- task: DotNetCoreCLI@2
-  inputs:
-    #command: 'build' 
-    #projects: 'AvansProjects.Antl.WebServer/Antl.WebServer.Api/Antl.WebServer.Api.csproj'
