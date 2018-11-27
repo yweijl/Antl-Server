@@ -1,6 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Antl.WebServer.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
 
 namespace Antl.WebServer.Entities
 {
