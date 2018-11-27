@@ -1,14 +1,27 @@
-﻿using Antl.WebServer.Entities;
+﻿using System;
+using System.Text;
+using System.Threading.Tasks;
+using Antl.WebServer.Api.AuthorizationHandlers;
+using Antl.WebServer.Entities;
 using Antl.WebServer.Infrastructure;
+using Antl.WebServer.Interfaces;
+using Antl.WebServer.Services;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Serilog.AspNetCore;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Antl.WebServer.Api
 {
@@ -31,11 +44,77 @@ namespace Antl.WebServer.Api
                 .AddEntityFrameworkStores<AntlContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddMvc();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = "https://localhost:44362.api",
+                    ValidAudience = "https://localhost:44362.api",
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["SecurityKey"]))
+                };
+            });
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Admin", policy =>
+                    policy.Requirements.Add(new UserRole("Admin")));
+            });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Events = new CookieAuthenticationEvents()
+                {
+                    OnRedirectToAccessDenied = context => {
+                        if (context.Request.Path.StartsWithSegments("/api"))
+                        {
+                            context.Response.StatusCode = 403;
+                            return Task.FromResult(0);
+                        }
+
+                        context.Response.Redirect(context.RedirectUri);
+                        return Task.FromResult(0);
+
+                    },
+                    OnRedirectToLogin = context =>
+                    {
+                        if (context.Request.Path.StartsWithSegments("/api"))
+                        {
+                            context.Response.StatusCode = 401;
+                            return Task.FromResult(0);
+                        }
+
+                        context.Response.Redirect(context.RedirectUri);
+                        return Task.FromResult(0);
+                    }
+                };
+
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+            });
+
+            services.AddMvc(config =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
+                config.Filters.Add(new AuthorizeFilter(policy));
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Antl API", Version = "v1" });
+            });
+
+            // Add Dependencies for injection
+            services.AddSingleton<IAuthorizationHandler, PermissionHandler>();
             services.AddSingleton<ILoggerFactory, SerilogLoggerFactory>();
+
+            services.AddScoped(typeof(IAuthenticationHandlerService), typeof(AuthenticationHandlerService));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +122,7 @@ namespace Antl.WebServer.Api
             AntlContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole<int>> roleManager)
         {
             AntlSeed.SeedAsync(context, userManager, roleManager).GetAwaiter().GetResult();
+            app.UseStatusCodePages();
 
             if (env.IsDevelopment())
             {
@@ -53,12 +133,23 @@ namespace Antl.WebServer.Api
                 app.UseHsts();
             }
 
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Antl API V1");
+                c.RoutePrefix = string.Empty;
+            });
+
 
             app.UseHttpsRedirection();
 
             app.UseAuthentication();
 
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+            });
         }
     }
 }

@@ -2,15 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <RuntimeFrameworkVersion>2.1.6</RuntimeFrameworkVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.6" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="2.1.6" />
+    <PackageReference Include="AgileObjects.AgileMapper" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Antl.WebServer.Dtos\Antl.WebServer.Dtos.csproj" />
+    <ProjectReference Include="..\Antl.WebServer.Entities\Antl.WebServer.Entities.csproj" />
     <ProjectReference Include="..\Antl.Webserver.Interfaces\Antl.WebServer.Interfaces.csproj" />
   </ItemGroup>
 </Project>

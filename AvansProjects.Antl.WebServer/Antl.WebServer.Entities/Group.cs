@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Antl.WebServer.Interfaces;
 using System.Collections.Generic;
 
 namespace Antl.WebServer.Entities

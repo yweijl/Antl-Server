@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Antl.WebServer.Interfaces;
 
 namespace Antl.WebServer.Entities
 {

@@ -1,4 +1,6 @@
-﻿namespace Antl.WebServer.Entities
+﻿using Antl.WebServer.Interfaces;
+
+namespace Antl.WebServer.Entities
 {
     public class UserEventAvailability : IEntity
     {
