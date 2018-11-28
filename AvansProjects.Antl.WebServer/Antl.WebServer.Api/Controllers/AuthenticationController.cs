@@ -17,12 +17,12 @@ namespace Antl.WebServer.Api.Controllers
     [Route("api")]
     public class AuthenticationController : Controller
     {
-        private readonly IAuthenticationHandlerService _authenticationHandlerService;
+        private readonly IAuthenticationHandlerServiceAsync authenticationHandlerServiceAsync;
         private readonly IConfiguration _configuration;
 
-        public AuthenticationController(IAuthenticationHandlerService authenticationHandlerService, IConfiguration configuration)
+        public AuthenticationController(IAuthenticationHandlerServiceAsync authenticationHandlerServiceAsync, IConfiguration configuration)
         {
-            _authenticationHandlerService = authenticationHandlerService;
+            this.authenticationHandlerServiceAsync = authenticationHandlerServiceAsync;
             _configuration = configuration;
         }
 
@@ -33,7 +33,7 @@ namespace Antl.WebServer.Api.Controllers
             if (!ModelState.IsValid || registerDto == null)
                 return BadRequest(ModelState);
 
-            await _authenticationHandlerService.RegisterAsync(registerDto).ConfigureAwait(true);
+            await authenticationHandlerServiceAsync.RegisterAsync(registerDto).ConfigureAwait(true);
 
             return new OkObjectResult("Account created");
         }
@@ -45,7 +45,7 @@ namespace Antl.WebServer.Api.Controllers
             if (!ModelState.IsValid || signInRequest == null)
                 return BadRequest(ModelState);
 
-            var result = await _authenticationHandlerService.SignInAsync(signInRequest).ConfigureAwait(true);
+            var result = await authenticationHandlerServiceAsync.SignInAsync(signInRequest).ConfigureAwait(true);
             if (!result) throw new UnauthorizedAccessException("Invalid login attempt");
 
             return Ok(RequestToken(signInRequest.UserName));
@@ -54,7 +54,7 @@ namespace Antl.WebServer.Api.Controllers
         [HttpPost("logout")]
         public async Task<IActionResult> LogOut()
         {
-            await _authenticationHandlerService.SignOutAsync().ConfigureAwait(true);
+            await authenticationHandlerServiceAsync.SignOutAsync().ConfigureAwait(true);
             return new OkObjectResult("Sign out Successful");
         }
 

@@ -3,7 +3,7 @@ using Antl.WebServer.Dtos;
 
 namespace Antl.WebServer.Interfaces
 {
-    public interface IAuthenticationHandlerService
+    public interface IAuthenticationHandlerServiceAsync
     {
         Task RegisterAsync(RegisterDto registerDto);
         Task<bool> SignInAsync(SignInDto signInDto);

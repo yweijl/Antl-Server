@@ -24,6 +24,7 @@
     <ProjectReference Include="..\Antl.WebServer.Entities\Antl.WebServer.Entities.csproj" />
     <ProjectReference Include="..\Antl.WebServer.Infrastructure\Antl.WebServer.Infrastructure.csproj" />
     <ProjectReference Include="..\Antl.Webserver.Interfaces\Antl.WebServer.Interfaces.csproj" />
+    <ProjectReference Include="..\Antl.WebServer.Repositories\Antl.WebServer.Repositories.csproj" />
     <ProjectReference Include="..\Antl.WebServer.Services\Antl.WebServer.Services.csproj" />
   </ItemGroup>
 </Project>

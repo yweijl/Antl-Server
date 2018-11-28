@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Antl.WebServer.Services
 {
-    public class AuthenticationHandlerService : IAuthenticationHandlerService
+    public class AuthenticationHandlerServiceAsyncAsync : IAuthenticationHandlerServiceAsync
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public AuthenticationHandlerService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AuthenticationHandlerServiceAsyncAsync(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;

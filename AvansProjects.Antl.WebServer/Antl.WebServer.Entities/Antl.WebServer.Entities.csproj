@@ -9,8 +9,4 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.6" />
     <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="2.1.6" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Antl.Webserver.Interfaces\Antl.WebServer.Interfaces.csproj" />
-  </ItemGroup>
 </Project>
