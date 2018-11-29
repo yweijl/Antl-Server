@@ -1,11 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Antl.WebServer.Dtos\Antl.WebServer.Dtos.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="1.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="1.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Antl.WebServer.Dtos\Antl.WebServer.Dtos.csproj" />
+    <ProjectReference Include="..\Antl.WebServer.Entities\Antl.WebServer.Entities.csproj" />
+  </ItemGroup>
 </Project>

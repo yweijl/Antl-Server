@@ -1,4 +1,4 @@
-﻿namespace Antl.WebServer.Interfaces
+﻿namespace Antl.WebServer.Entities
 {
     public interface IEntity
     {

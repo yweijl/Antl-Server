@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace Antl.WebServer.Entities
+namespace Antl.WebServer.Dtos
 {
-    public class Event : IEntity
+    public class EventDto : IDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime? MainDateTime { get; set; }
         public string Location { get; set; }
-        public ICollection<EventDate> EventDates { get; set; }
     }
 }

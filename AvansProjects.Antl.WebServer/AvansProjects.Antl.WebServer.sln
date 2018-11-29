@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Antl.WebServer.Services", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Antl.WebServer.Interfaces", "Antl.Webserver.Interfaces\Antl.WebServer.Interfaces.csproj", "{5D5D3CCB-DE33-4F96-9A2C-BB33572CE712}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antl.WebServer.Dtos", "Antl.WebServer.Dtos\Antl.WebServer.Dtos.csproj", "{AB7F0E9B-AB20-4845-97B2-0E192FF5FA5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Antl.WebServer.Dtos", "Antl.WebServer.Dtos\Antl.WebServer.Dtos.csproj", "{AB7F0E9B-AB20-4845-97B2-0E192FF5FA5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antl.WebServer.Repositories", "Antl.WebServer.Repositories\Antl.WebServer.Repositories.csproj", "{60EC45B8-66EC-4555-9CE6-637717252C6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{AB7F0E9B-AB20-4845-97B2-0E192FF5FA5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB7F0E9B-AB20-4845-97B2-0E192FF5FA5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB7F0E9B-AB20-4845-97B2-0E192FF5FA5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60EC45B8-66EC-4555-9CE6-637717252C6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60EC45B8-66EC-4555-9CE6-637717252C6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60EC45B8-66EC-4555-9CE6-637717252C6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60EC45B8-66EC-4555-9CE6-637717252C6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,6 +1,4 @@
-﻿using Antl.WebServer.Interfaces;
-
-namespace Antl.WebServer.Entities
+﻿namespace Antl.WebServer.Entities
 {
     public class FriendShip : IEntity
     {

@@ -2,9 +2,12 @@
 using System.Text;
 using System.Threading.Tasks;
 using Antl.WebServer.Api.AuthorizationHandlers;
+using Antl.WebServer.Api.Controllers;
+using Antl.WebServer.Dtos;
 using Antl.WebServer.Entities;
 using Antl.WebServer.Infrastructure;
 using Antl.WebServer.Interfaces;
+using Antl.WebServer.Repositories;
 using Antl.WebServer.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -114,7 +117,15 @@ namespace Antl.WebServer.Api
             services.AddSingleton<IAuthorizationHandler, PermissionHandler>();
             services.AddSingleton<ILoggerFactory, SerilogLoggerFactory>();
 
-            services.AddScoped(typeof(IAuthenticationHandlerService), typeof(AuthenticationHandlerService));
+            // Generic Controllers Dependency injection
+            services.AddScoped(typeof(IGenericBaseControllerAsync<EventDto>), typeof(GenericBaseControllerAsync<EventDto, Event>));
+
+            // Generic Services Dependency injection
+            services.AddScoped(typeof(IGenericServiceAsync<EventDto, Event>), typeof(GenericServiceAsync<EventDto, Event>));
+            services.AddScoped(typeof(IAuthenticationHandlerServiceAsync), typeof(AuthenticationHandlerServiceAsyncAsync));
+
+            // Generic Repositories Dependency injection
+            services.AddScoped(typeof(IGenericRepository<Event>), typeof(GenericRepository<Event>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -141,15 +152,11 @@ namespace Antl.WebServer.Api
                 c.RoutePrefix = string.Empty;
             });
 
-
             app.UseHttpsRedirection();
 
             app.UseAuthentication();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
-            });
+            app.UseMvc();
         }
     }
 }
