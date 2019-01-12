@@ -9,10 +9,13 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using AgileObjects.AgileMapper;
+using Antl.WebServer.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Antl.WebServer.Api.Controllers
 {
-    [Authorize]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("api")]
     public class AuthenticationController : Controller
@@ -48,7 +51,9 @@ namespace Antl.WebServer.Api.Controllers
             var result = await authenticationHandlerServiceAsync.SignInAsync(signInRequest).ConfigureAwait(true);
             if (!result) throw new UnauthorizedAccessException("Invalid login attempt");
 
-            return Ok(RequestToken(signInRequest.UserName));
+            ApplicationUser user = await authenticationHandlerServiceAsync.GetUserAsync(signInRequest.UserName).ConfigureAwait(true);
+
+            return Ok(RequestToken(user));
         }
 
         [HttpPost("logout")]
@@ -58,11 +63,11 @@ namespace Antl.WebServer.Api.Controllers
             return new OkObjectResult("Sign out Successful");
         }
 
-        private string RequestToken(string userName)
+        private string RequestToken(ApplicationUser user)
         {
             var claims = new[]
             {
-                new Claim(ClaimTypes.Name, userName)
+                new Claim("UUID", user.Id.ToString())
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["SecurityKey"]));

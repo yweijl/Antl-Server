@@ -72,7 +72,8 @@ namespace Antl.WebServer.Api
             {
                 options.Events = new CookieAuthenticationEvents()
                 {
-                    OnRedirectToAccessDenied = context => {
+                    OnRedirectToAccessDenied = context =>
+                    {
                         if (context.Request.Path.StartsWithSegments("/api"))
                         {
                             context.Response.StatusCode = 403;
@@ -97,7 +98,6 @@ namespace Antl.WebServer.Api
                 };
 
                 options.Cookie.HttpOnly = true;
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
             });
 
             services.AddMvc(config =>
@@ -119,13 +119,17 @@ namespace Antl.WebServer.Api
 
             // Generic Controllers Dependency injection
             services.AddScoped(typeof(IGenericBaseControllerAsync<EventDto>), typeof(GenericBaseControllerAsync<EventDto, Event>));
+            services.AddScoped(typeof(IGenericBaseControllerAsync<UserDto>), typeof(GenericBaseControllerAsync<UserDto, ApplicationUser>));
 
             // Generic Services Dependency injection
             services.AddScoped(typeof(IGenericServiceAsync<EventDto, Event>), typeof(GenericServiceAsync<EventDto, Event>));
+            services.AddScoped(typeof(IGenericServiceAsync<UserDto, ApplicationUser>), typeof(GenericServiceAsync<UserDto, ApplicationUser>));
+            services.AddScoped(typeof(IGenericServiceAsync<UserDto, ApplicationUser>), typeof(UserService));
             services.AddScoped(typeof(IAuthenticationHandlerServiceAsync), typeof(AuthenticationHandlerServiceAsyncAsync));
 
             // Generic Repositories Dependency injection
             services.AddScoped(typeof(IGenericRepository<Event>), typeof(GenericRepository<Event>));
+            services.AddScoped(typeof(IGenericRepository<ApplicationUser>), typeof(GenericRepository<ApplicationUser>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

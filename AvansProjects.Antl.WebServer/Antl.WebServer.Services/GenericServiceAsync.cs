@@ -6,8 +6,7 @@ using Antl.WebServer.Dtos;
 using Antl.WebServer.Entities;
 using Antl.WebServer.Interfaces;
 
-namespace Antl.WebServer.Services
-{
+namespace Antl.WebServer.Services{
     public class GenericServiceAsync<TDto, TEntity> : IGenericServiceAsync<TDto, TEntity>
         where TDto : class, IDto
         where TEntity : IEntity

@@ -45,7 +45,7 @@ namespace Antl.WebServer.Infrastructure.Migrations
                     AccessFailedCount = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    ExternIdGuid = table.Column<Guid>(nullable: false),
+                    ExternalId = table.Column<string>(nullable: true),
                     Gender = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

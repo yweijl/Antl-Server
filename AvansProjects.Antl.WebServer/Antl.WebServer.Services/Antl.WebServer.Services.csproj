@@ -13,4 +13,10 @@
     <ProjectReference Include="..\Antl.WebServer.Entities\Antl.WebServer.Entities.csproj" />
     <ProjectReference Include="..\Antl.Webserver.Interfaces\Antl.WebServer.Interfaces.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.Hosting">
+      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.aspnetcore.hosting\2.1.1\lib\netstandard2.0\Microsoft.AspNetCore.Hosting.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>

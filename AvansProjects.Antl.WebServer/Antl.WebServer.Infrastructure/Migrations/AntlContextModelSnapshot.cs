@@ -35,7 +35,7 @@ namespace Antl.WebServer.Infrastructure.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<Guid>("ExternIdGuid");
+                    b.Property<string>("ExternalId");
 
                     b.Property<string>("FirstName");
 

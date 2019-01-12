@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Antl.WebServer.Infrastructure.Migrations
 {
     [DbContext(typeof(AntlContext))]
-    [Migration("20181120125608_Init")]
+    [Migration("20190110195239_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,7 +37,7 @@ namespace Antl.WebServer.Infrastructure.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<Guid>("ExternIdGuid");
+                    b.Property<string>("ExternalId");
 
                     b.Property<string>("FirstName");
 
