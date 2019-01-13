@@ -14,7 +14,7 @@ namespace Antl.WebServer.Api.Controllers
         where TDto : class, IDto
         where TEntity : IEntity
     {
-        private readonly IGenericServiceAsync<TDto, TEntity> _service;
+        protected readonly IGenericServiceAsync<TDto, TEntity> _service;
 
         public GenericBaseControllerAsync(IGenericServiceAsync<TDto, TEntity> service)
         {
