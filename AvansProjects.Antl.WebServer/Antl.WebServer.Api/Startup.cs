@@ -120,16 +120,19 @@ namespace Antl.WebServer.Api
             // Generic Controllers Dependency injection
             services.AddScoped(typeof(IGenericBaseControllerAsync<EventDto>), typeof(GenericBaseControllerAsync<EventDto, Event>));
             services.AddScoped(typeof(IGenericBaseControllerAsync<UserDto>), typeof(GenericBaseControllerAsync<UserDto, ApplicationUser>));
+            services.AddScoped(typeof(IGenericBaseControllerAsync<FriendshipDto>), typeof(GenericBaseControllerAsync<FriendshipDto, FriendShip>));
 
             // Generic Services Dependency injection
             services.AddScoped(typeof(IGenericServiceAsync<EventDto, Event>), typeof(GenericServiceAsync<EventDto, Event>));
             services.AddScoped(typeof(IGenericServiceAsync<UserDto, ApplicationUser>), typeof(GenericServiceAsync<UserDto, ApplicationUser>));
-            services.AddScoped(typeof(IGenericServiceAsync<UserDto, ApplicationUser>), typeof(ContactService));
+            services.AddScoped(typeof(IGenericServiceAsync<FriendshipDto, FriendShip>), typeof(ContactService));
             services.AddScoped(typeof(IAuthenticationHandlerServiceAsync), typeof(AuthenticationHandlerServiceAsyncAsync));
 
             // Generic Repositories Dependency injection
             services.AddScoped(typeof(IGenericRepository<Event>), typeof(GenericRepository<Event>));
             services.AddScoped(typeof(IGenericRepository<ApplicationUser>), typeof(GenericRepository<ApplicationUser>));
+            services.AddScoped(typeof(IGenericRepository<FriendShip>), typeof(GenericRepository<FriendShip>));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
