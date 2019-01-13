@@ -124,7 +124,7 @@ namespace Antl.WebServer.Api
             // Generic Services Dependency injection
             services.AddScoped(typeof(IGenericServiceAsync<EventDto, Event>), typeof(GenericServiceAsync<EventDto, Event>));
             services.AddScoped(typeof(IGenericServiceAsync<UserDto, ApplicationUser>), typeof(GenericServiceAsync<UserDto, ApplicationUser>));
-            services.AddScoped(typeof(IGenericServiceAsync<UserDto, ApplicationUser>), typeof(UserService));
+            services.AddScoped(typeof(IGenericServiceAsync<UserDto, ApplicationUser>), typeof(ContactService));
             services.AddScoped(typeof(IAuthenticationHandlerServiceAsync), typeof(AuthenticationHandlerServiceAsyncAsync));
 
             // Generic Repositories Dependency injection

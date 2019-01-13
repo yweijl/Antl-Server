@@ -11,7 +11,7 @@ namespace Antl.WebServer.Services{
         where TDto : class, IDto
         where TEntity : IEntity
     {
-        private readonly IGenericRepository<TEntity> _repository;
+        protected readonly IGenericRepository<TEntity> _repository;
 
         public GenericServiceAsync(IGenericRepository<TEntity> repository)
         {

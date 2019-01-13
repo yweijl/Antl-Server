@@ -27,21 +27,6 @@ namespace Antl.WebServer.Infrastructure.Data
                 }
             };
 
-            userList[0].FriendShips = new List<FriendShip>
-            {
-                new FriendShip
-                {
-                    ApplicationUser = userList[1]
-                }
-            };
-
-            userList[1].FriendShips = new List<FriendShip>
-            {
-                new FriendShip
-                {
-                    ApplicationUser = userList[0]
-                }
-            };
             return userList;
         }
     }
