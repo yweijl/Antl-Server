@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AgileObjects.AgileMapper;
 using Antl.WebServer.Dtos;
@@ -17,22 +18,14 @@ namespace Antl.WebServer.Api.Controllers
         {
         }
 
-
-
-        [
-            HttpGet("user/{code}")
-        ]
-
+        [HttpGet("user/{code}")]
         public async Task<IActionResult> GetAllAsync(string code)
 
         {
-            var result = await ((ContactService) _service).GetAllFriendsAsync(code).ConfigureAwait(true);
-            var mappedResult = new List<FriendDto>();
-            foreach (var applicationUser in result)
-            {
-            mappedResult.Add(Mapper.Map(applicationUser).ToANew<FriendDto>());
-                
-            }
+            var result = await ((ContactService)_service).GetAllFriendsAsync(code).ConfigureAwait(true);
+
+            var mappedResult = result.Select(x => Mapper.Map(x).ToANew<FriendDto>()).ToList();
+
             return Ok(mappedResult);
         }
     }

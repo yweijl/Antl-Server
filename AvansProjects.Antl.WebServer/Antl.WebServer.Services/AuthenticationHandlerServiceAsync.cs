@@ -25,7 +25,7 @@ namespace Antl.WebServer.Services
             user.ExternalId = string.Join("-", new Random().Next(1000, 9999).ToString(),
                 new Random().Next(1000, 9999).ToString(), new Random().Next(1000, 9999).ToString());
 
-            var result = await _userManager.CreateAsync(user, registerDto.Password).ConfigureAwait(true);
+            var result = await _userManager.CreateAsync(user, registerDto.Password).ConfigureAwait(false);
             if (!result.Succeeded) throw new ArgumentNullException(nameof(result));
 
             await _userManager.AddToRoleAsync(user, "User").ConfigureAwait(false);

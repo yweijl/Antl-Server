@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AgileObjects.AgileMapper;
 using Antl.WebServer.Dtos;
@@ -20,29 +21,25 @@ namespace Antl.WebServer.Services
         public override async Task<FriendShip> AddAsync(FriendshipDto dto)
         {
             var users = await _userRepository.GetAllAsync().ConfigureAwait(true);
-            ApplicationUser userOne = new ApplicationUser();
-            ApplicationUser userTwo = new ApplicationUser();
-
-            foreach (var user in users)
-            {
-                if (user.ExternalId == dto.UserIdOne)
-                {
-                    userOne = user;
-                }
-
-                if (user.ExternalId == dto.UserIdTwo)
-                {
-                    userTwo = user;
-                }
-            }
+            var userOne = users.SingleOrDefault(x => x.ExternalId == dto.UserIdOne);
+            var userTwo = users.SingleOrDefault(x => x.ExternalId == dto.UserIdTwo);
 
             if (userOne == null || userTwo == null)
             {
-               throw new ArgumentException();
+                throw new ArgumentException();
             }
 
+            var newDto = GetInternalFriendshipDto(userOne, userTwo);
 
-        InternalFriendshipDto newDto = new InternalFriendshipDto();
+            if (newDto == null) throw new ArgumentNullException(nameof(newDto));
+            var entity = Mapper.Map(newDto).ToANew<FriendShip>();
+
+            return await _repository.AddAsync(entity).ConfigureAwait(false);
+        }
+
+        private static InternalFriendshipDto GetInternalFriendshipDto(ApplicationUser userOne, ApplicationUser userTwo)
+        {
+            var newDto = new InternalFriendshipDto();
 
             if (userOne.Id < userTwo.Id)
             {
@@ -55,49 +52,29 @@ namespace Antl.WebServer.Services
                 newDto.ApplicationUserTwo = userOne;
             }
 
-            if (dto == null) throw new ArgumentNullException(nameof(dto));
-            var entity = Mapper.Map(newDto).ToANew<FriendShip>();
-
-            var result = await _repository.AddAsync(entity).ConfigureAwait(false);
-            return await Task.FromResult(result).ConfigureAwait(false);
+            return newDto;
         }
 
-        public async Task<ICollection<ApplicationUser>> GetAllFriendsAsync(String code)
+        public async Task<ICollection<ApplicationUser>> GetAllFriendsAsync(string code)
         {
             var users = await _userRepository.GetAllAsync().ConfigureAwait(true);
-            ApplicationUser requestingUser = new ApplicationUser();
-
-
-            foreach (var user in users)
-            {
-                if (code.Equals(user.ExternalId))
-                {
-                    requestingUser = user;
-                }
-            }
+            var requestingUser = users.SingleOrDefault(x => x.ExternalId == code);
 
             if (requestingUser == null)
             {
                 throw new ArgumentException();
             }
 
-            var friendships = await _repository.GetAllAsync().ConfigureAwait(true);
-            
+            var friendships = await _repository.GetAllAsync().ConfigureAwait(false);
+
+            var usersFriendsOne = friendships.Where(x =>
+             x.ApplicationUser.ExternalId == code).Select(x => Mapper.Map(x.ApplicationUserTwo).ToANew<ApplicationUser>()).ToList();
+            var usersFriendsTwo = friendships.Where(x =>
+                    x.ApplicationUserTwo.ExternalId == code).Select(x => Mapper.Map(x.ApplicationUser).ToANew<ApplicationUser>()).ToList();
+
             var usersFriendships = new List<ApplicationUser>();
-
-            foreach (var friendship in friendships)
-            {
-                if (friendship.ApplicationUser.ExternalId == code)
-                {
-                    usersFriendships.Add(friendship.ApplicationUserTwo);
-                }
-                
-                if (friendship.ApplicationUserTwo.ExternalId == code)
-                {
-                    usersFriendships.Add(friendship.ApplicationUser);
-                }
-
-            }
+            usersFriendships.AddRange(usersFriendsOne);
+            usersFriendships.AddRange(usersFriendsTwo);
 
             ICollection<ApplicationUser> friendList =
                 await Task.FromResult<ICollection<ApplicationUser>>(usersFriendships);
@@ -105,14 +82,5 @@ namespace Antl.WebServer.Services
             return friendList;
 
         }
-
-        public class InternalFriendshipDto : IDto
-        {
-            public int Id { get; set; }
-            public ApplicationUser ApplicationUser { get; set; }
-            public ApplicationUser ApplicationUserTwo { get; set; }
-        }
-
-
     }
 }
