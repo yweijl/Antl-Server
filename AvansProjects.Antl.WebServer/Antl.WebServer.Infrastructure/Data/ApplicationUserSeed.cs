@@ -15,6 +15,7 @@ namespace Antl.WebServer.Infrastructure.Data
                     FirstName = "John",
                     LastName = "Doe",
                     Email = "jdoe@gmail.com",
+                    ExternalId = "0000-0000-0000",
                     Gender = GenderType.Male,
                 },
                 new ApplicationUser
@@ -23,25 +24,11 @@ namespace Antl.WebServer.Infrastructure.Data
                     FirstName = "Jane",
                     LastName = "Doe",
                     Email = "janedoe@gmail.com",
+                    ExternalId = "9999-9999-9999",
                     Gender = GenderType.Female,
                 }
             };
 
-            userList[0].FriendShips = new List<FriendShip>
-            {
-                new FriendShip
-                {
-                    ApplicationUser = userList[1]
-                }
-            };
-
-            userList[1].FriendShips = new List<FriendShip>
-            {
-                new FriendShip
-                {
-                    ApplicationUser = userList[0]
-                }
-            };
             return userList;
         }
     }

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using AgileObjects.AgileMapper;
 
 namespace Antl.WebServer.Api.Controllers
 {
@@ -13,7 +14,7 @@ namespace Antl.WebServer.Api.Controllers
         where TDto : class, IDto
         where TEntity : IEntity
     {
-        private readonly IGenericServiceAsync<TDto, TEntity> _service;
+        protected readonly IGenericServiceAsync<TDto, TEntity> _service;
 
         public GenericBaseControllerAsync(IGenericServiceAsync<TDto, TEntity> service)
         {
@@ -28,9 +29,10 @@ namespace Antl.WebServer.Api.Controllers
         public virtual async Task<IActionResult> GetAsync(int id)
         {
             var entity = (await _service.GetAsync(id).ConfigureAwait(true));
-            if (entity != null) return Ok(entity);
+            if (entity == null) return NotFound($"{typeof(TEntity).Name} with id: {id} was not found");
 
-            return NotFound($"{typeof(TEntity).Name} with id: {id} was not found");
+            var dto = Mapper.Map(entity).ToANew(typeof(TDto));
+            return Ok(dto);
         }
 
         [HttpPost]

@@ -35,7 +35,7 @@ namespace Antl.WebServer.Infrastructure.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<Guid>("ExternIdGuid");
+                    b.Property<string>("ExternalId");
 
                     b.Property<string>("FirstName");
 
@@ -121,9 +121,13 @@ namespace Antl.WebServer.Infrastructure.Migrations
 
                     b.Property<int?>("ApplicationUserId");
 
+                    b.Property<int?>("ApplicationUserTwoId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("ApplicationUserTwoId");
 
                     b.ToTable("FriendShips");
                 });
@@ -293,8 +297,12 @@ namespace Antl.WebServer.Infrastructure.Migrations
             modelBuilder.Entity("Antl.WebServer.Entities.FriendShip", b =>
                 {
                     b.HasOne("Antl.WebServer.Entities.ApplicationUser", "ApplicationUser")
-                        .WithMany("FriendShips")
+                        .WithMany()
                         .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("Antl.WebServer.Entities.ApplicationUser", "ApplicationUserTwo")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserTwoId");
                 });
 
             modelBuilder.Entity("Antl.WebServer.Entities.UserEventAvailability", b =>

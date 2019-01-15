@@ -8,8 +8,7 @@ namespace Antl.WebServer.Entities
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public Guid ExternIdGuid { get; set; }
-        public ICollection<FriendShip> FriendShips { get; set; }
+        public string ExternalId { get; set; }
         public ICollection<UserGroup> UserGroups { get; set; }
         public ICollection<UserEventAvailability> UserEventAvailabilities { get; set; }
         public GenderType Gender { get; set; }

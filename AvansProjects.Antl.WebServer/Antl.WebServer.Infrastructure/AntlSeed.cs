@@ -41,6 +41,10 @@ namespace Antl.WebServer.Infrastructure
 
             await context.Groups.AddAsync(group).ConfigureAwait(false);
 
+            var friendships = new FriendshipSeed().SeedFriendShips(applicationUserList[0], applicationUserList[1]);
+
+            await context.FriendShips.AddAsync(friendships).ConfigureAwait(false);
+
             await context.SaveChangesAsync().ConfigureAwait(false);
 
         }

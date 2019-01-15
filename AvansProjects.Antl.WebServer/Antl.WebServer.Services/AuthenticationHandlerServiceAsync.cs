@@ -22,8 +22,10 @@ namespace Antl.WebServer.Services
         public async Task RegisterAsync(RegisterDto registerDto)
         {
             var user = Mapper.Map(registerDto).ToANew<ApplicationUser>();
+            user.ExternalId = string.Join("-", new Random().Next(1000, 9999).ToString(),
+                new Random().Next(1000, 9999).ToString(), new Random().Next(1000, 9999).ToString());
 
-            var result = await _userManager.CreateAsync(user, registerDto.Password).ConfigureAwait(true);
+            var result = await _userManager.CreateAsync(user, registerDto.Password).ConfigureAwait(false);
             if (!result.Succeeded) throw new ArgumentNullException(nameof(result));
 
             await _userManager.AddToRoleAsync(user, "User").ConfigureAwait(false);
@@ -35,6 +37,11 @@ namespace Antl.WebServer.Services
             return _signInManager
                 .PasswordSignInAsync(signInDto.UserName, signInDto.Password, isPersistent: false,
                     lockoutOnFailure: false).ContinueWith(x => x.Result.Succeeded);
+        }
+
+        public Task<ApplicationUser> GetUserAsync(string userName)
+        {
+            return _userManager.FindByNameAsync(userName);
         }
 
         public Task SignOutAsync()

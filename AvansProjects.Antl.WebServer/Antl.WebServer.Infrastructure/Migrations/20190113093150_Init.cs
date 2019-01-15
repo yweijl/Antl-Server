@@ -45,7 +45,7 @@ namespace Antl.WebServer.Infrastructure.Migrations
                     AccessFailedCount = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    ExternIdGuid = table.Column<Guid>(nullable: false),
+                    ExternalId = table.Column<string>(nullable: true),
                     Gender = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -193,7 +193,8 @@ namespace Antl.WebServer.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ApplicationUserId = table.Column<int>(nullable: true)
+                    ApplicationUserId = table.Column<int>(nullable: true),
+                    ApplicationUserTwoId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -201,6 +202,12 @@ namespace Antl.WebServer.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_FriendShips_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_FriendShips_AspNetUsers_ApplicationUserTwoId",
+                        column: x => x.ApplicationUserTwoId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -325,6 +332,11 @@ namespace Antl.WebServer.Infrastructure.Migrations
                 name: "IX_FriendShips_ApplicationUserId",
                 table: "FriendShips",
                 column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FriendShips_ApplicationUserTwoId",
+                table: "FriendShips",
+                column: "ApplicationUserTwoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserEventAvailabilities_ApplicationUserId",
