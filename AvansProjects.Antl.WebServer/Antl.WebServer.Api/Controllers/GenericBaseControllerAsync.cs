@@ -14,7 +14,7 @@ namespace Antl.WebServer.Api.Controllers
         where TDto : class, IDto
         where TEntity : IEntity
     {
-        protected readonly IGenericServiceAsync<TDto, TEntity> _service;
+        private readonly IGenericServiceAsync<TDto, TEntity> _service;
 
         public GenericBaseControllerAsync(IGenericServiceAsync<TDto, TEntity> service)
         {
@@ -26,10 +26,10 @@ namespace Antl.WebServer.Api.Controllers
             Ok(await _service.GetAllAsync().ConfigureAwait(true));
 
         [HttpGet("{id}")]
-        public virtual async Task<IActionResult> GetAsync(int id)
+        public virtual async Task<IActionResult> GetAsync(string externalId)
         {
-            var entity = (await _service.GetAsync(id).ConfigureAwait(true));
-            if (entity == null) return NotFound($"{typeof(TEntity).Name} with id: {id} was not found");
+            var entity = (await _service.GetByExternalIdAsync(externalId).ConfigureAwait(true));
+            if (entity == null) return NotFound($"{typeof(TEntity).Name} with id: {externalId} was not found");
 
             var dto = Mapper.Map(entity).ToANew(typeof(TDto));
             return Ok(dto);
@@ -59,12 +59,12 @@ namespace Antl.WebServer.Api.Controllers
         }
 
         [HttpPatch("{id}")]
-        public virtual async Task<IActionResult> PatchAsync(int id, [FromBody] JsonPatchDocument<TDto> patchDoc)
+        public virtual async Task<IActionResult> PatchAsync(string externalId, [FromBody] JsonPatchDocument<TDto> patchDoc)
         {
             if (patchDoc == null || !ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            return await _service.PatchAsync(id, entity =>
+            return await _service.PatchAsync(externalId, entity =>
             {
                 patchDoc.ApplyTo(entity, ModelState);
                 return entity;
@@ -74,9 +74,9 @@ namespace Antl.WebServer.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public virtual async Task<IActionResult> DeleteAsync(int id)
+        public virtual async Task<IActionResult> DeleteAsync(string externalId)
         {
-            var x = await _service.DeleteAsync(id).ConfigureAwait(true);
+            var x = await _service.DeleteAsync(externalId).ConfigureAwait(true);
             return NoContent();
         }
     }

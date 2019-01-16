@@ -11,7 +11,7 @@ namespace Antl.WebServer.Services{
         where TDto : class, IDto
         where TEntity : IEntity
     {
-        protected readonly IGenericRepository<TEntity> _repository;
+        private readonly IGenericRepository<TEntity> _repository;
 
         public GenericServiceAsync(IGenericRepository<TEntity> repository)
         {
@@ -27,36 +27,41 @@ namespace Antl.WebServer.Services{
             return await Task.FromResult(result).ConfigureAwait(false);
         }
 
-        public virtual async Task<bool> DeleteAsync(int id)
+        public virtual async  Task<bool> DeleteAsync(string externalId)
         {
-            var entity = await _repository.GetAsync(id).ConfigureAwait(false);
+            var entity = await _repository.GetAsync(x => x.ExternalId == externalId).ConfigureAwait(false);
             if (entity == null) throw new ArgumentNullException(nameof(entity));
 
             return await _repository.DeleteAsync(entity).ConfigureAwait(false);
         }
 
-        public virtual Task<TEntity> GetAsync(int id)
+        public virtual Task<TEntity> GetByIdAsync(int id)
         {
-            return _repository.GetAsync(id);
+            return _repository.GetAsync(x => x.Id == id);
         }
 
-        public async Task<ICollection<TEntity>> GetAllAsync() =>
+        public virtual Task<TEntity> GetByExternalIdAsync(string externalId)
+        {
+            return _repository.GetAsync(x => x.ExternalId == externalId);
+        }
+
+        public virtual async Task<ICollection<TEntity>> GetAllAsync() =>
             await _repository.GetAllAsync().ConfigureAwait(false);
 
-        public async Task<bool> PatchAsync(int id, Func<TDto, TDto> patchFunction)
+        public virtual async Task<bool> PatchAsync(string externalId, Func<TDto, TDto> patchFunction)
         {
             if (patchFunction == null) throw new ArgumentNullException(nameof(patchFunction));
-            var entity = await GetAsync(id).ConfigureAwait(false);
+            var entity = await GetByExternalIdAsync(externalId).ConfigureAwait(false);
 
             return entity != null &&
                    await UpdateAsync(patchFunction(Mapper.Map(entity)
                        .ToANew<TDto>())).ConfigureAwait(false);
         }
 
-        public async Task<bool> UpdateAsync(TDto dto)
+        public virtual async Task<bool> UpdateAsync(TDto dto)
         {
             if (dto == null) throw new ArgumentNullException(nameof(dto));
-            var entity = await _repository.GetAsync(dto.Id).ConfigureAwait(false);
+            var entity = await _repository.GetAsync(x => x.ExternalId == dto.ExternalId).ConfigureAwait(false);
 
             if (entity == null) throw new ArgumentNullException(nameof(dto));
 

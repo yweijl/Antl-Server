@@ -9,10 +9,10 @@ namespace Antl.WebServer.Interfaces
     where TDto : class, IDto
     {
         Task<IActionResult> GetAllAsync();
-        Task<IActionResult> GetAsync(int id);
+        Task<IActionResult> GetAsync(string externalId);
         Task<IActionResult> PostAsync([FromBody] TDto tDto);
         Task<IActionResult> PutAsync([FromBody] TDto tDto);
-        Task<IActionResult> PatchAsync(int id, [FromBody] JsonPatchDocument<TDto> patchDoc);
-        Task<IActionResult> DeleteAsync(int id);
+        Task<IActionResult> PatchAsync(string externalId, [FromBody] JsonPatchDocument<TDto> patchDoc);
+        Task<IActionResult> DeleteAsync(string externalId);
     }
 }

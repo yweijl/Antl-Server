@@ -16,7 +16,6 @@ namespace Antl.WebServer.Infrastructure.Data
                     LastName = "Doe",
                     Email = "jdoe@gmail.com",
                     ExternalId = "0000-0000-0000",
-                    Gender = GenderType.Male,
                 },
                 new ApplicationUser
                 {
@@ -25,7 +24,6 @@ namespace Antl.WebServer.Infrastructure.Data
                     LastName = "Doe",
                     Email = "janedoe@gmail.com",
                     ExternalId = "9999-9999-9999",
-                    Gender = GenderType.Female,
                 }
             };
 

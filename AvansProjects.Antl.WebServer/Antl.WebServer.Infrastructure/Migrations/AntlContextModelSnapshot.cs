@@ -39,8 +39,6 @@ namespace Antl.WebServer.Infrastructure.Migrations
 
                     b.Property<string>("FirstName");
 
-                    b.Property<int>("Gender");
-
                     b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
@@ -85,6 +83,12 @@ namespace Antl.WebServer.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Description");
+
+                    b.Property<string>("ExternalId");
+
+                    b.Property<string>("ImagePath");
+
                     b.Property<string>("Location");
 
                     b.Property<DateTime?>("MainDateTime");
@@ -104,7 +108,9 @@ namespace Antl.WebServer.Infrastructure.Migrations
 
                     b.Property<DateTime>("DateTime");
 
-                    b.Property<int?>("EventId");
+                    b.Property<int>("EventId");
+
+                    b.Property<string>("ExternalId");
 
                     b.HasKey("Id");
 
@@ -123,6 +129,8 @@ namespace Antl.WebServer.Infrastructure.Migrations
 
                     b.Property<int?>("ApplicationUserTwoId");
 
+                    b.Property<string>("ExternalId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId");
@@ -138,6 +146,8 @@ namespace Antl.WebServer.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ExternalId");
+
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
@@ -145,25 +155,27 @@ namespace Antl.WebServer.Infrastructure.Migrations
                     b.ToTable("Groups");
                 });
 
-            modelBuilder.Entity("Antl.WebServer.Entities.UserEventAvailability", b =>
+            modelBuilder.Entity("Antl.WebServer.Entities.UserEventDate", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ApplicationUserId");
+                    b.Property<int>("ApplicationUserId");
 
                     b.Property<int>("Availability");
 
-                    b.Property<int?>("EventId");
+                    b.Property<int>("EventDateID");
+
+                    b.Property<string>("ExternalId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.HasIndex("EventId");
+                    b.HasIndex("EventDateID");
 
-                    b.ToTable("UserEventAvailabilities");
+                    b.ToTable("UserEventDates");
                 });
 
             modelBuilder.Entity("Antl.WebServer.Entities.UserGroup", b =>
@@ -291,7 +303,8 @@ namespace Antl.WebServer.Infrastructure.Migrations
                 {
                     b.HasOne("Antl.WebServer.Entities.Event", "Event")
                         .WithMany("EventDates")
-                        .HasForeignKey("EventId");
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Antl.WebServer.Entities.FriendShip", b =>
@@ -305,15 +318,17 @@ namespace Antl.WebServer.Infrastructure.Migrations
                         .HasForeignKey("ApplicationUserTwoId");
                 });
 
-            modelBuilder.Entity("Antl.WebServer.Entities.UserEventAvailability", b =>
+            modelBuilder.Entity("Antl.WebServer.Entities.UserEventDate", b =>
                 {
                     b.HasOne("Antl.WebServer.Entities.ApplicationUser", "ApplicationUser")
                         .WithMany("UserEventAvailabilities")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Antl.WebServer.Entities.EventDate", "Event")
+                    b.HasOne("Antl.WebServer.Entities.EventDate", "EventDate")
                         .WithMany("UserAvailabilities")
-                        .HasForeignKey("EventId");
+                        .HasForeignKey("EventDateID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Antl.WebServer.Entities.UserGroup", b =>

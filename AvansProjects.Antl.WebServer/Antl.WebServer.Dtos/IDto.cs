@@ -2,6 +2,6 @@
 {
     public interface IDto
     {
-        int Id { get; set; }
+        string ExternalId { get; set; }
     }
 }

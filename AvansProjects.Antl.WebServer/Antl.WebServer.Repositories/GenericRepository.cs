@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Antl.WebServer.Entities;
 using Antl.WebServer.Infrastructure;
@@ -35,16 +37,18 @@ namespace Antl.WebServer.Repositories
             return await _context.SaveChangesAsync().ConfigureAwait(false) > 0;
         }
 
-        public async Task<TEntity> GetAsync(int id)
+        public Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> where)
         {
-            var entity = await _set.SingleOrDefaultAsync(x => Equals(x.Id, id)).ConfigureAwait(false);
-            return await Task.FromResult(entity).ConfigureAwait(false);
+            return _set.SingleOrDefaultAsync(where);
+        }
+        public Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> where)
+        {
+            return _set.Where(where).ToListAsync();
         }
 
-        public async Task<List<TEntity>> GetAllAsync()
+        public Task<List<TEntity>> GetAllAsync()
         {
-            var entityList = await _set.ToListAsync().ConfigureAwait(false);
-            return await Task.FromResult(entityList).ConfigureAwait(false);
+            return _set.ToListAsync();
         }
 
         public async Task<bool> UpdateAsync(TEntity entity)

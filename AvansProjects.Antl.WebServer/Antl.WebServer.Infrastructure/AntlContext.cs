@@ -17,8 +17,8 @@ namespace Antl.WebServer.Infrastructure
         public DbSet<Group> Groups { get; set; }
         public DbSet<FriendShip> FriendShips { get; set; }
         public DbSet<UserGroup> UserGroups { get; set; }
-        public DbSet<UserEventAvailability> UserEventAvailabilities { get; set; }
         public DbSet<EventDate> EventDates { get; set; }
+        public DbSet<UserEventDate> UserEventDates { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

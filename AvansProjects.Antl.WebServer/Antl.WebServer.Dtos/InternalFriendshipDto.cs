@@ -9,7 +9,8 @@ namespace Antl.WebServer.Dtos
     public class InternalFriendshipDto : IDto
     {
         public int Id { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
-        public ApplicationUser ApplicationUserTwo { get; set; }
+        public string ExternalId { get; set; }
+        public int ApplicationUserId { get; set; }
+        public int ApplicationUserTwoId { get; set; }
     }
 }
