@@ -9,33 +9,32 @@ using Antl.WebServer.Interfaces;
 
 namespace Antl.WebServer.Services
 {
-    public class FriendshipService : GenericServiceAsync<FriendshipDto, FriendShip> , IFriendshipService
+    public class FriendshipService : GenericServiceAsync<FriendshipDto, Friendship> , IFriendshipService
     {
-        private readonly IGenericRepository<FriendShip> _friendshipRepository;
+        private readonly IGenericRepository<Friendship> _friendshipRepository;
         private readonly IGenericRepository<ApplicationUser> _userRepository;
 
-        public FriendshipService(IGenericRepository<FriendShip> friendshipRepository,
+        public FriendshipService(IGenericRepository<Friendship> friendshipRepository,
             IGenericRepository<ApplicationUser> userRepository) : base(friendshipRepository)
         {
             _friendshipRepository = friendshipRepository;
             _userRepository = userRepository;
         }
 
-        public override async Task<FriendShip> AddAsync(FriendshipDto dto)
+        public override async Task<Friendship> AddAsync(FriendshipDto dto)
         {
-            var userOne = await _userRepository.GetAsync(x => x.ExternalId == dto.UserIdOne).ConfigureAwait(false);
-            var userTwo = await _userRepository.GetAsync(x => x.ExternalId == dto.UserIdTwo).ConfigureAwait(false);
+            var userOne = await _userRepository.GetAsync(x => x.ExternalId == dto.ApplicationUserExternalId).ConfigureAwait(false);
+            var userTwo = await _userRepository.GetAsync(x => x.ExternalId == dto.).ConfigureAwait(false);
 
             if (userOne == null || userTwo == null)
             {
                 throw new ArgumentException(nameof(ApplicationUser));
             }
 
-            var internalFriendship = GetInternalFriendship(userOne.Id, userTwo.Id);
+            var internalFriendship = GetInternalFriendship(userOne, userTwo);
 
-            if (internalFriendship == null) throw new ArgumentNullException(nameof(internalFriendship));
 
-            var entity = Mapper.Map(internalFriendship).ToANew<FriendShip>();
+            var entity = Mapper.Map(internalFriendship).ToANew<Friendship>();
 
             return await _friendshipRepository.AddAsync(entity).ConfigureAwait(false);
         }
@@ -53,11 +52,12 @@ namespace Antl.WebServer.Services
             return new List<ApplicationUser>().Concat(userOneList).Concat(userTwoList).ToList();
         }
 
-        private static InternalFriendshipDto GetInternalFriendship(int userOne, int userTwo)
+        private static InternalFriendshipProjection GetInternalFriendship(ApplicationUser userOne, ApplicationUser userTwo)
         {
-            return new InternalFriendshipDto
+            return new InternalFriendshipProjection
             {
-                ApplicationUserId = Math.Min(userOne, userTwo), ApplicationUserTwoId = Math.Max(userTwo, userOne)
+                ApplicationUser = (userOne.Id < userTwo.Id) ? userOne : userTwo,
+                ApplicationUserTwo = (userOne.Id > userTwo.Id) ? userOne : userTwo
             };
         }
     }

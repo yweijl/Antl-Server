@@ -10,6 +10,6 @@ namespace Antl.WebServer.Entities
         public DateTime DateTime { get; set; }
         public int EventId { get; set; }
         public Event Event { get; set; }
-        public ICollection<UserEventDate> UserAvailabilities { get; set; }
+        public virtual ICollection<UserEventDate> UserEventDates { get; set; }
     }
 }

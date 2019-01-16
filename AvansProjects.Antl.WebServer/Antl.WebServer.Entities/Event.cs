@@ -12,6 +12,6 @@ namespace Antl.WebServer.Entities
         public string ImagePath { get; set; }
         public DateTime? MainDateTime { get; set; }
         public string Location { get; set; }
-        public ICollection<EventDate> EventDates { get; set; }
+        public virtual ICollection<EventDate> EventDates { get; set; }
     }
 }

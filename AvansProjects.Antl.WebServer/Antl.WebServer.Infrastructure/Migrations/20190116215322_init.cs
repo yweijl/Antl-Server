@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Antl.WebServer.Infrastructure.Migrations
 {
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -197,7 +197,9 @@ namespace Antl.WebServer.Infrastructure.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ExternalId = table.Column<string>(nullable: true),
+                    ApplicationUserExternalId = table.Column<string>(nullable: true),
                     ApplicationUserId = table.Column<int>(nullable: true),
+                    ApplicationUserTwoExternalId = table.Column<string>(nullable: true),
                     ApplicationUserTwoId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -270,7 +272,7 @@ namespace Antl.WebServer.Infrastructure.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ExternalId = table.Column<string>(nullable: true),
                     ApplicationUserId = table.Column<int>(nullable: false),
-                    EventDateID = table.Column<int>(nullable: false),
+                    EventDateId = table.Column<int>(nullable: false),
                     Availability = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -283,8 +285,8 @@ namespace Antl.WebServer.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserEventDates_EventDates_EventDateID",
-                        column: x => x.EventDateID,
+                        name: "FK_UserEventDates_EventDates_EventDateId",
+                        column: x => x.EventDateId,
                         principalTable: "EventDates",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -350,9 +352,9 @@ namespace Antl.WebServer.Infrastructure.Migrations
                 column: "ApplicationUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserEventDates_EventDateID",
+                name: "IX_UserEventDates_EventDateId",
                 table: "UserEventDates",
-                column: "EventDateID");
+                column: "EventDateId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserGroups_GroupId",

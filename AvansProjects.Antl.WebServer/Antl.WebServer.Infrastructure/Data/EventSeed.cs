@@ -18,7 +18,7 @@ namespace Antl.WebServer.Infrastructure.Data
                         new EventDate
                         {
                             DateTime = DateTime.Now.AddDays(5),
-                            UserAvailabilities = new List<UserEventDate>
+                            UserEventDates = new List<UserEventDate>
                             {
                                 new UserEventDate
                                 {
@@ -45,7 +45,7 @@ namespace Antl.WebServer.Infrastructure.Data
                         new EventDate
                         {
                             DateTime = DateTime.Now.AddDays(9),
-                            UserAvailabilities = new List<UserEventDate>
+                            UserEventDates = new List<UserEventDate>
                             {
                                 new UserEventDate
                                 {
@@ -80,7 +80,7 @@ namespace Antl.WebServer.Infrastructure.Data
                         new EventDate
                         {
                             DateTime = DateTime.Now.AddDays(11),
-                            UserAvailabilities = new List<UserEventDate>
+                            UserEventDates = new List<UserEventDate>
                             {
                                 new UserEventDate
                                 {
@@ -107,7 +107,7 @@ namespace Antl.WebServer.Infrastructure.Data
                         new EventDate
                         {
                             DateTime = DateTime.Now.AddDays(15),
-                            UserAvailabilities = new List<UserEventDate>
+                            UserEventDates = new List<UserEventDate>
                             {
                                 new UserEventDate
                                 {

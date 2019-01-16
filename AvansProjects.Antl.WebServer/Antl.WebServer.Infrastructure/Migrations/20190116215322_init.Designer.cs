@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Antl.WebServer.Infrastructure.Migrations
 {
     [DbContext(typeof(AntlContext))]
-    [Migration("20190116173351_Init")]
-    partial class Init
+    [Migration("20190116215322_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -121,13 +121,17 @@ namespace Antl.WebServer.Infrastructure.Migrations
                     b.ToTable("EventDates");
                 });
 
-            modelBuilder.Entity("Antl.WebServer.Entities.FriendShip", b =>
+            modelBuilder.Entity("Antl.WebServer.Entities.Friendship", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ApplicationUserExternalId");
+
                     b.Property<int?>("ApplicationUserId");
+
+                    b.Property<string>("ApplicationUserTwoExternalId");
 
                     b.Property<int?>("ApplicationUserTwoId");
 
@@ -167,7 +171,7 @@ namespace Antl.WebServer.Infrastructure.Migrations
 
                     b.Property<int>("Availability");
 
-                    b.Property<int>("EventDateID");
+                    b.Property<int>("EventDateId");
 
                     b.Property<string>("ExternalId");
 
@@ -175,7 +179,7 @@ namespace Antl.WebServer.Infrastructure.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.HasIndex("EventDateID");
+                    b.HasIndex("EventDateId");
 
                     b.ToTable("UserEventDates");
                 });
@@ -309,7 +313,7 @@ namespace Antl.WebServer.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Antl.WebServer.Entities.FriendShip", b =>
+            modelBuilder.Entity("Antl.WebServer.Entities.Friendship", b =>
                 {
                     b.HasOne("Antl.WebServer.Entities.ApplicationUser", "ApplicationUser")
                         .WithMany()
@@ -328,8 +332,8 @@ namespace Antl.WebServer.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Antl.WebServer.Entities.EventDate", "EventDate")
-                        .WithMany("UserAvailabilities")
-                        .HasForeignKey("EventDateID")
+                        .WithMany("UserEventDates")
+                        .HasForeignKey("EventDateId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

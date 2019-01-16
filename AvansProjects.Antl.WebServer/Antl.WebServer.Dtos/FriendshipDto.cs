@@ -6,9 +6,9 @@ namespace Antl.WebServer.Dtos
     {
         public string ExternalId { get; set; }
         [Required]
-        public string UserIdOne { get; set; }
+        public string ApplicationUserExternalId { get; set; }
         [Required]
-        public string UserIdTwo { get; set; }
+        public string ApplicationUserTwoExternalId { get; set; }
 
     }
 }

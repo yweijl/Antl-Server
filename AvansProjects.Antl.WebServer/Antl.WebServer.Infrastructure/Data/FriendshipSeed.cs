@@ -5,9 +5,9 @@ namespace Antl.WebServer.Infrastructure.Data
 {
     public class FriendshipSeed
     {
-        public FriendShip SeedFriendShips(ApplicationUser user, ApplicationUser userTwo)
+        public Friendship SeedFriendShips(ApplicationUser user, ApplicationUser userTwo)
         {
-            var friendShip = new FriendShip
+            var friendShip = new Friendship
             {
                     ApplicationUser = user,
                     ApplicationUserTwo = userTwo

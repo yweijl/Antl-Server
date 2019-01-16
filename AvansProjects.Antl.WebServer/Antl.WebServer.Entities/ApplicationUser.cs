@@ -9,7 +9,7 @@ namespace Antl.WebServer.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string ExternalId { get; set; }
-        public ICollection<UserGroup> UserGroups { get; set; }
-        public ICollection<UserEventDate> UserEventAvailabilities { get; set; }
+        public virtual ICollection<UserGroup> UserGroups { get; set; }
+        public virtual ICollection<UserEventDate> UserEventAvailabilities { get; set; }
     }
 }
