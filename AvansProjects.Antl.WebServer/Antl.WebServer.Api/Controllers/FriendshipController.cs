@@ -13,12 +13,12 @@ namespace Antl.WebServer.Api.Controllers
     [Route("api/[controller]")]
     public class FriendshipController : GenericBaseControllerAsync<FriendshipDto, FriendShip>
     {
-        private readonly IFriendShipService _friendShipService;
+        private readonly IFriendshipService _friendshipService;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public FriendshipController(FriendShipService relationService, IFriendShipService friendShipService, UserManager<ApplicationUser> userManager) : base(relationService)
+        public FriendshipController(IGenericServiceAsync<FriendshipDto, FriendShip> genericService , IFriendshipService friendshipService, UserManager<ApplicationUser> userManager) : base(genericService)
         {
-            _friendShipService = friendShipService;
+            _friendshipService = friendshipService;
             _userManager = userManager;
         }
 
@@ -29,7 +29,7 @@ namespace Antl.WebServer.Api.Controllers
                 return BadRequest($"Invalid request with id: {externalId}");
                    
             var userId = int.Parse(_userManager.GetUserId(User));
-            var result = await _friendShipService.GetListAsync(externalId, userId).ConfigureAwait(true);
+            var result = await _friendshipService.GetListAsync(externalId, userId).ConfigureAwait(true);
 
             var mappedResult = result.Select(x => Mapper.Map(x).ToANew<FriendDto>()).ToList();
 

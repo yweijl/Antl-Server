@@ -9,12 +9,12 @@ using Antl.WebServer.Interfaces;
 
 namespace Antl.WebServer.Services
 {
-    public class FriendShipService : GenericServiceAsync<FriendshipDto, FriendShip> , IFriendShipService
+    public class FriendshipService : GenericServiceAsync<FriendshipDto, FriendShip> , IFriendshipService
     {
         private readonly IGenericRepository<FriendShip> _friendshipRepository;
         private readonly IGenericRepository<ApplicationUser> _userRepository;
 
-        public FriendShipService(IGenericRepository<FriendShip> friendshipRepository,
+        public FriendshipService(IGenericRepository<FriendShip> friendshipRepository,
             IGenericRepository<ApplicationUser> userRepository) : base(friendshipRepository)
         {
             _friendshipRepository = friendshipRepository;

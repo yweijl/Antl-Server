@@ -119,14 +119,13 @@ namespace Antl.WebServer.Api
             services.AddScoped(typeof(IGenericBaseControllerAsync<EventDto>), typeof(GenericBaseControllerAsync<EventDto, Event>));
             services.AddScoped(typeof(IGenericBaseControllerAsync<UserDto>), typeof(GenericBaseControllerAsync<UserDto, ApplicationUser>));
             services.AddScoped(typeof(IGenericBaseControllerAsync<FriendshipDto>), typeof(GenericBaseControllerAsync<FriendshipDto, FriendShip>));
-            services.AddScoped(typeof(IGenericBaseControllerAsync<FriendshipDto>), typeof(FriendshipController));
 
             // Generic Services Dependency injection
             services.AddScoped(typeof(IGenericServiceAsync<EventDto, Event>), typeof(GenericServiceAsync<EventDto, Event>));
             services.AddScoped(typeof(IGenericServiceAsync<UserDto, ApplicationUser>), typeof(GenericServiceAsync<UserDto, ApplicationUser>));
             services.AddScoped(typeof(IGenericServiceAsync<FriendshipDto, FriendShip>), typeof(GenericServiceAsync<FriendshipDto, FriendShip>));
             services.AddScoped(typeof(IAuthenticationHandlerServiceAsync), typeof(AuthenticationHandlerServiceAsyncAsync));
-            services.AddScoped(typeof(IFriendShipService),typeof(FriendShipService));
+            services.AddScoped(typeof(IFriendshipService), typeof(FriendshipService));
 
             // Generic Repositories Dependency injection
             services.AddScoped(typeof(IGenericRepository<Event>), typeof(GenericRepository<Event>));

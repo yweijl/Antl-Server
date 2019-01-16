@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Antl.WebServer.Interfaces
 {
-    public interface IFriendShipService
+    public interface IFriendshipService
     {
         Task<List<ApplicationUser>> GetListAsync(string externalId, int userId);
     }
