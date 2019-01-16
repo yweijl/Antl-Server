@@ -7,6 +7,5 @@ namespace Antl.WebServer.Dtos
     {
         [Required]
         public string ExternalId { get; set; }
-        public int Id { get; set; }
     }
 }
