@@ -50,8 +50,6 @@ namespace Antl.WebServer.Infrastructure
                 .HasForeignKey(fs => fs.ApplicationUserFriendId).OnDelete(DeleteBehavior.Restrict);
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.UseSqlServer(
-                @"Server=(localdb)\mssqllocaldb;Database=AntlDb;Trusted_Connection=True;ConnectRetryCount=0");
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
     }
 }

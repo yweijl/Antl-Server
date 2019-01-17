@@ -53,8 +53,8 @@ namespace Antl.WebServer.Api
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    ValidIssuer = "https://localhost:44362.api",
-                    ValidAudience = "https://localhost:44362.api",
+                    ValidIssuer = "https://antlwebserver.azurewebsites.net",
+                    ValidAudience = "https://antlwebserver.azurewebsites.net",
 
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["SecurityKey"]))
                 };

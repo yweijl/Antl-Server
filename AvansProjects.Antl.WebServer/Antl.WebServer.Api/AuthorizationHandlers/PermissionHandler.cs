@@ -9,7 +9,7 @@ namespace Antl.WebServer.Api.AuthorizationHandlers
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, UserRole userRole)
         {
             if (!context.User.HasClaim(x => x.Type == ClaimTypes.Role &&
-                                            x.Issuer == "http://localhost:44362/api"))
+                                            x.Issuer == "https://antlwebserver.azurewebsites.net"))
             {
                 return Task.CompletedTask;
             }
