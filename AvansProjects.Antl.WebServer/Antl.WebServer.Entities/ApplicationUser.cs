@@ -9,8 +9,9 @@ namespace Antl.WebServer.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string ExternalId { get; set; }
-        public ICollection<UserGroup> UserGroups { get; set; }
-        public ICollection<UserEventAvailability> UserEventAvailabilities { get; set; }
-        public GenderType Gender { get; set; }
+        public virtual ICollection<UserGroup> UserGroups { get; set; }
+        public virtual ICollection<UserEventDate> UserEventAvailabilities { get; set; }
+        public virtual ICollection<Friendship> Friendships { get; set; }
+        public virtual ICollection<Friendship> USerFriendships  { get; set; }
     }
 }

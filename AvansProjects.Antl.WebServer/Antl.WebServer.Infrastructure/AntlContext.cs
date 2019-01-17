@@ -15,10 +15,10 @@ namespace Antl.WebServer.Infrastructure
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<Group> Groups { get; set; }
-        public DbSet<FriendShip> FriendShips { get; set; }
+        public DbSet<Friendship> FriendShips { get; set; }
         public DbSet<UserGroup> UserGroups { get; set; }
-        public DbSet<UserEventAvailability> UserEventAvailabilities { get; set; }
         public DbSet<EventDate> EventDates { get; set; }
+        public DbSet<UserEventDate> UserEventDates { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -35,6 +35,19 @@ namespace Antl.WebServer.Infrastructure
                 .HasOne(pc => pc.Group)
                 .WithMany(p => p.UserGroups)
                 .HasForeignKey(pc => pc.GroupId);
+
+
+            modelBuilder.Entity<Friendship>().HasKey(k => new {k.ApplicationUserId, k.ApplicationUserTwoId});
+
+            modelBuilder.Entity<Friendship>()
+                .HasOne(fs => fs.ApplicationUser)
+                .WithMany(u => u.Friendships)
+                .HasForeignKey(fs => fs.ApplicationUserId).OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Friendship>()
+                .HasOne(fs => fs.ApplicationUserTwo)
+                .WithMany(u => u.USerFriendships)
+                .HasForeignKey(fs => fs.ApplicationUserTwoId).OnDelete(DeleteBehavior.Restrict);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

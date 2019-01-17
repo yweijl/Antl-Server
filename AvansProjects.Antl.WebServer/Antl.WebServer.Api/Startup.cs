@@ -1,7 +1,4 @@
-﻿using System;
-using System.Text;
-using System.Threading.Tasks;
-using Antl.WebServer.Api.AuthorizationHandlers;
+﻿using Antl.WebServer.Api.AuthorizationHandlers;
 using Antl.WebServer.Api.Controllers;
 using Antl.WebServer.Dtos;
 using Antl.WebServer.Entities;
@@ -9,7 +6,6 @@ using Antl.WebServer.Infrastructure;
 using Antl.WebServer.Interfaces;
 using Antl.WebServer.Repositories;
 using Antl.WebServer.Services;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -25,6 +21,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Serilog.AspNetCore;
 using Swashbuckle.AspNetCore.Swagger;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Antl.WebServer.Api
 {
@@ -120,19 +118,19 @@ namespace Antl.WebServer.Api
             // Generic Controllers Dependency injection
             services.AddScoped(typeof(IGenericBaseControllerAsync<EventDto>), typeof(GenericBaseControllerAsync<EventDto, Event>));
             services.AddScoped(typeof(IGenericBaseControllerAsync<UserDto>), typeof(GenericBaseControllerAsync<UserDto, ApplicationUser>));
-            services.AddScoped(typeof(IGenericBaseControllerAsync<FriendshipDto>), typeof(GenericBaseControllerAsync<FriendshipDto, FriendShip>));
-            services.AddScoped(typeof(IGenericBaseControllerAsync<UserIdentificationDto>), typeof(RelationshipController));
-
+            services.AddScoped(typeof(IGenericBaseControllerAsync<FriendshipDto>), typeof(GenericBaseControllerAsync<FriendshipDto, Friendship>));
             // Generic Services Dependency injection
             services.AddScoped(typeof(IGenericServiceAsync<EventDto, Event>), typeof(GenericServiceAsync<EventDto, Event>));
             services.AddScoped(typeof(IGenericServiceAsync<UserDto, ApplicationUser>), typeof(GenericServiceAsync<UserDto, ApplicationUser>));
-            services.AddScoped(typeof(IGenericServiceAsync<FriendshipDto, FriendShip>), typeof(ContactService));
+            services.AddScoped(typeof(IGenericServiceAsync<FriendshipDto, Friendship>), typeof(GenericServiceAsync<FriendshipDto, Friendship>));
             services.AddScoped(typeof(IAuthenticationHandlerServiceAsync), typeof(AuthenticationHandlerServiceAsyncAsync));
+            services.AddScoped(typeof(IFriendshipService), typeof(FriendshipService));
 
             // Generic Repositories Dependency injection
             services.AddScoped(typeof(IGenericRepository<Event>), typeof(GenericRepository<Event>));
             services.AddScoped(typeof(IGenericRepository<ApplicationUser>), typeof(GenericRepository<ApplicationUser>));
-            services.AddScoped(typeof(IGenericRepository<FriendShip>), typeof(GenericRepository<FriendShip>));
+            services.AddScoped(typeof(IGenericRepository<Friendship>), typeof(GenericRepository<Friendship>));
+            //services.AddScoped(typeof(IFriendshipRepository), typeof(FriendshipRepository));
 
         }
 

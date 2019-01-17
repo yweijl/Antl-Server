@@ -6,9 +6,8 @@ using Antl.WebServer.Entities;
 
 namespace Antl.WebServer.Dtos
 {
-    public class InternalFriendshipDto : IDto
+    public class InternalFriendshipProjection : FriendshipDto
     {
-        public int Id { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
         public ApplicationUser ApplicationUserTwo { get; set; }
     }

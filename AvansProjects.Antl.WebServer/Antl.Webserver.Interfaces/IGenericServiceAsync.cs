@@ -12,9 +12,10 @@ namespace Antl.WebServer.Interfaces
     {
         Task<TEntity> AddAsync(TDto tDto);
         Task<ICollection<TEntity>> GetAllAsync();
-        Task<TEntity> GetAsync(int id);
+        Task<TEntity> GetByIdAsync(int id);
+        Task<TEntity> GetByExternalIdAsync(string externalId);
         Task<bool> UpdateAsync(TDto tDto);
-        Task<bool> PatchAsync(int id, Func<TDto, TDto> patchFunction);
-        Task<bool> DeleteAsync(int id);
+        Task<bool> PatchAsync(string externalId, Func<TDto, TDto> patchFunction);
+        Task<bool> DeleteAsync(string externalId);
     }
 }

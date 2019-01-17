@@ -45,8 +45,7 @@ namespace Antl.WebServer.Infrastructure.Migrations
                     AccessFailedCount = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    ExternalId = table.Column<string>(nullable: true),
-                    Gender = table.Column<int>(nullable: false)
+                    ExternalId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -59,7 +58,10 @@ namespace Antl.WebServer.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ExternalId = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    ImagePath = table.Column<string>(nullable: true),
                     MainDateTime = table.Column<DateTime>(nullable: true),
                     Location = table.Column<string>(nullable: true)
                 },
@@ -74,6 +76,7 @@ namespace Antl.WebServer.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ExternalId = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -191,14 +194,14 @@ namespace Antl.WebServer.Infrastructure.Migrations
                 name: "FriendShips",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ApplicationUserId = table.Column<int>(nullable: true),
-                    ApplicationUserTwoId = table.Column<int>(nullable: true)
+                    Id = table.Column<int>(nullable: false),
+                    ExternalId = table.Column<string>(nullable: true),
+                    ApplicationUserId = table.Column<int>(nullable: false),
+                    ApplicationUserTwoId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FriendShips", x => x.Id);
+                    table.PrimaryKey("PK_FriendShips", x => new { x.ApplicationUserId, x.ApplicationUserTwoId });
                     table.ForeignKey(
                         name: "FK_FriendShips_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
@@ -219,8 +222,9 @@ namespace Antl.WebServer.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ExternalId = table.Column<string>(nullable: true),
                     DateTime = table.Column<DateTime>(nullable: false),
-                    EventId = table.Column<int>(nullable: true)
+                    EventId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -230,7 +234,7 @@ namespace Antl.WebServer.Infrastructure.Migrations
                         column: x => x.EventId,
                         principalTable: "Events",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -258,30 +262,31 @@ namespace Antl.WebServer.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserEventAvailabilities",
+                name: "UserEventDates",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ApplicationUserId = table.Column<int>(nullable: true),
-                    EventId = table.Column<int>(nullable: true),
+                    ExternalId = table.Column<string>(nullable: true),
+                    ApplicationUserId = table.Column<int>(nullable: false),
+                    EventDateId = table.Column<int>(nullable: false),
                     Availability = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserEventAvailabilities", x => x.Id);
+                    table.PrimaryKey("PK_UserEventDates", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserEventAvailabilities_AspNetUsers_ApplicationUserId",
+                        name: "FK_UserEventDates_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserEventAvailabilities_EventDates_EventId",
-                        column: x => x.EventId,
+                        name: "FK_UserEventDates_EventDates_EventDateId",
+                        column: x => x.EventDateId,
                         principalTable: "EventDates",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -329,24 +334,19 @@ namespace Antl.WebServer.Infrastructure.Migrations
                 column: "EventId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FriendShips_ApplicationUserId",
-                table: "FriendShips",
-                column: "ApplicationUserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_FriendShips_ApplicationUserTwoId",
                 table: "FriendShips",
                 column: "ApplicationUserTwoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserEventAvailabilities_ApplicationUserId",
-                table: "UserEventAvailabilities",
+                name: "IX_UserEventDates_ApplicationUserId",
+                table: "UserEventDates",
                 column: "ApplicationUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserEventAvailabilities_EventId",
-                table: "UserEventAvailabilities",
-                column: "EventId");
+                name: "IX_UserEventDates_EventDateId",
+                table: "UserEventDates",
+                column: "EventDateId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserGroups_GroupId",
@@ -375,7 +375,7 @@ namespace Antl.WebServer.Infrastructure.Migrations
                 name: "FriendShips");
 
             migrationBuilder.DropTable(
-                name: "UserEventAvailabilities");
+                name: "UserEventDates");
 
             migrationBuilder.DropTable(
                 name: "UserGroups");
