@@ -10,6 +10,6 @@ namespace Antl.WebServer.Interfaces
     public interface IFriendshipService
     {
         Task<List<FriendDto>> GetListAsync(int id);
-        Task<Friendship> AddAsync(FriendshipDto dto);
+        Task<Friendship> AddAsync(FriendshipDto dto, int userId);
     }
 }

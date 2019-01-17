@@ -23,17 +23,17 @@ namespace Antl.WebServer.Services
             _userRepository = userRepository;
         }
 
-        public override async Task<Friendship> AddAsync(FriendshipDto dto)
+        public async Task<Friendship> AddAsync(FriendshipDto dto, int userId)
         {
-            var userOne = await _userRepository.GetAsync(x => x.ExternalId == dto.ApplicationUserExternalId).ConfigureAwait(false);
-            var userTwo = await _userRepository.GetAsync(x => x.ExternalId == dto.ApplicationUserTwoExternalId).ConfigureAwait(false);
+            var user = await _userRepository.GetAsync(x => x.Id == userId).ConfigureAwait(false);
+            var friend = await _userRepository.GetAsync(x => x.ExternalId.Equals(dto.FriendId)).ConfigureAwait(false);
 
-            if (userOne == null || userTwo == null)
+            if (user == null || friend == null)
             {
                 throw new ArgumentException(nameof(ApplicationUser));
             }
 
-            var internalFriendship = GetInternalFriendship(userOne, userTwo);
+            var internalFriendship = GetInternalFriendship( user, friend);
 
             return await base.AddAsync(internalFriendship).ConfigureAwait(false);
         }
@@ -41,8 +41,8 @@ namespace Antl.WebServer.Services
         public async Task<List<FriendDto>> GetListAsync(int id)
         {
             var friendshipList =
-                (await _genericRepository.GetListAsync(x => x.ApplicationUserId == id || x.ApplicationUserTwoId == id)
-                    .ConfigureAwait(false)).SelectMany(i => new[] {i.ApplicationUserId, i.ApplicationUserTwoId})
+                (await _genericRepository.GetListAsync(x => x.ApplicationUserId == id || x.ApplicationUserFriendId == id)
+                    .ConfigureAwait(false)).SelectMany(i => new[] {i.ApplicationUserId, i.ApplicationUserFriendId})
                 .Where(x => x != id).ToArray();
 
             return Mapper.Map(await _userRepository.GetListAsync(x => friendshipList.Contains(x.Id))).ToANew<List<FriendDto>>();
@@ -53,7 +53,7 @@ namespace Antl.WebServer.Services
             return new InternalFriendshipProjection
             {
                 ApplicationUser = (userOne.Id < userTwo.Id) ? userOne : userTwo,
-                ApplicationUserTwo = (userOne.Id > userTwo.Id) ? userOne : userTwo
+                ApplicationUserFriend = (userOne.Id > userTwo.Id) ? userOne : userTwo
             };
         }
     }
