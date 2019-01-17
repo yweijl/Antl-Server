@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using AgileObjects.AgileMapper;
+using Microsoft.AspNetCore.Identity;
 
 namespace Antl.WebServer.Api.Controllers
 {

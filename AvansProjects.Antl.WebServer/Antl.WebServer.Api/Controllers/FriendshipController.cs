@@ -16,6 +16,7 @@ namespace Antl.WebServer.Api.Controllers
         private readonly IFriendshipService _friendshipService;
         private readonly UserManager<ApplicationUser> _userManager;
 
+
         public FriendshipController(IGenericServiceAsync<FriendshipDto, Friendship> genericService , IFriendshipService friendshipService, UserManager<ApplicationUser> userManager) : base(genericService)
         {
             _friendshipService = friendshipService;
@@ -34,18 +35,16 @@ namespace Antl.WebServer.Api.Controllers
                 : Ok(entity);
         }
 
-        [HttpGet("get/{externalId}")]
-        public async Task<IActionResult> GetListAsync(string externalId)
+        [HttpGet("get")]
+        public async Task<IActionResult> GetListAsync()
         {
-            if (string.IsNullOrWhiteSpace(externalId))
-                return BadRequest($"Invalid request with id: {externalId}");
-                   
-            var userId = int.Parse(_userManager.GetUserId(User));
-            var result = await _friendshipService.GetListAsync(externalId, userId).ConfigureAwait(true);
+            int.TryParse(_userManager.GetUserId(User), out var userId);
 
-            var mappedResult = result.Select(x => Mapper.Map(x).ToANew<FriendDto>()).ToList();
+            var result = await _friendshipService.GetListAsync(userId).ConfigureAwait(true);
 
-            return Ok(mappedResult);
+            return result == null
+                ? (IActionResult)NotFound($"Could not retrieve list {typeof(FriendDto).Name}")
+                : Ok(result);
         }
     }
 }

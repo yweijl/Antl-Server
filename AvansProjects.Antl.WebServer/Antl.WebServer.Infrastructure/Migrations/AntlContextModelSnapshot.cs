@@ -121,23 +121,15 @@ namespace Antl.WebServer.Infrastructure.Migrations
 
             modelBuilder.Entity("Antl.WebServer.Entities.Friendship", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("ApplicationUserId");
 
-                    b.Property<string>("ApplicationUserExternalId");
-
-                    b.Property<int?>("ApplicationUserId");
-
-                    b.Property<string>("ApplicationUserTwoExternalId");
-
-                    b.Property<int?>("ApplicationUserTwoId");
+                    b.Property<int>("ApplicationUserTwoId");
 
                     b.Property<string>("ExternalId");
 
-                    b.HasKey("Id");
+                    b.Property<int>("Id");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasKey("ApplicationUserId", "ApplicationUserTwoId");
 
                     b.HasIndex("ApplicationUserTwoId");
 
@@ -314,12 +306,14 @@ namespace Antl.WebServer.Infrastructure.Migrations
             modelBuilder.Entity("Antl.WebServer.Entities.Friendship", b =>
                 {
                     b.HasOne("Antl.WebServer.Entities.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId");
+                        .WithMany("Friendships")
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Antl.WebServer.Entities.ApplicationUser", "ApplicationUserTwo")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserTwoId");
+                        .WithMany("USerFriendships")
+                        .HasForeignKey("ApplicationUserTwoId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Antl.WebServer.Entities.UserEventDate", b =>

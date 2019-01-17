@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AgileObjects.AgileMapper;
 using Antl.WebServer.Dtos;
@@ -40,7 +41,7 @@ namespace Antl.WebServer.Services{
             return _repository.GetAsync(x => x.Id == id);
         }
 
-        public virtual Task<TEntity> GetByExternalIdAsync(string externalId)
+       public virtual Task<TEntity> GetByExternalIdAsync(string externalId)
         {
             return _repository.GetAsync(x => x.ExternalId == externalId);
         }
