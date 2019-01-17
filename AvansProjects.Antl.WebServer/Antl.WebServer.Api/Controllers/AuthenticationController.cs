@@ -67,7 +67,7 @@ namespace Antl.WebServer.Api.Controllers
         {
             var claims = new[]
             {
-                new Claim("UUID", user.Id.ToString())
+                new Claim("EID", user.ExternalId)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["SecurityKey"]));

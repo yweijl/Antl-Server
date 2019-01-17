@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Antl.WebServer.Infrastructure.Migrations
 {
     [DbContext(typeof(AntlContext))]
-    [Migration("20190117140014_Init")]
+    [Migration("20190117143053_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
