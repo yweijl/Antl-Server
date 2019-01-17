@@ -30,11 +30,11 @@ namespace Antl.WebServer.Api.Controllers
 
             if (friendshipDto == null || !ModelState.IsValid)
                 return BadRequest(ModelState);
+            var result = await _friendshipService.AddAsync(friendshipDto, userId).ConfigureAwait(true);
 
-            var entity = await _friendshipService.AddAsync(friendshipDto, userId).ConfigureAwait(true);
-            return entity == null
-                ? (IActionResult)NotFound($"Could not add {typeof(FriendshipDto).Name}")
-                : Ok(entity);
+            return result != null
+                ? Ok("Friendship added")
+                : (IActionResult)UnprocessableEntity();
         }
 
         [HttpGet("get")]
