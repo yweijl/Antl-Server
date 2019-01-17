@@ -20,12 +20,12 @@ namespace Antl.WebServer.Api.Controllers
     [Route("api")]
     public class AuthenticationController : Controller
     {
-        private readonly IAuthenticationHandlerServiceAsync authenticationHandlerServiceAsync;
+        private readonly IAuthenticationHandlerServiceAsync _authenticationHandlerServiceAsync;
         private readonly IConfiguration _configuration;
 
         public AuthenticationController(IAuthenticationHandlerServiceAsync authenticationHandlerServiceAsync, IConfiguration configuration)
         {
-            this.authenticationHandlerServiceAsync = authenticationHandlerServiceAsync;
+            _authenticationHandlerServiceAsync = authenticationHandlerServiceAsync;
             _configuration = configuration;
         }
 
@@ -36,7 +36,7 @@ namespace Antl.WebServer.Api.Controllers
             if (!ModelState.IsValid || registerDto == null)
                 return BadRequest(ModelState);
 
-            await authenticationHandlerServiceAsync.RegisterAsync(registerDto).ConfigureAwait(true);
+            await _authenticationHandlerServiceAsync.RegisterAsync(registerDto).ConfigureAwait(true);
 
             return new OkObjectResult("Account created");
         }
@@ -48,10 +48,10 @@ namespace Antl.WebServer.Api.Controllers
             if (!ModelState.IsValid || signInRequest == null)
                 return BadRequest(ModelState);
 
-            var result = await authenticationHandlerServiceAsync.SignInAsync(signInRequest).ConfigureAwait(true);
+            var result = await _authenticationHandlerServiceAsync.SignInAsync(signInRequest).ConfigureAwait(true);
             if (!result) throw new UnauthorizedAccessException("Invalid login attempt");
 
-            ApplicationUser user = await authenticationHandlerServiceAsync.GetUserAsync(signInRequest.UserName).ConfigureAwait(true);
+            ApplicationUser user = await _authenticationHandlerServiceAsync.GetUserAsync(signInRequest.UserName).ConfigureAwait(true);
 
             return Ok(RequestToken(user));
         }
@@ -59,7 +59,7 @@ namespace Antl.WebServer.Api.Controllers
         [HttpPost("logout")]
         public async Task<IActionResult> LogOut()
         {
-            await authenticationHandlerServiceAsync.SignOutAsync().ConfigureAwait(true);
+            await _authenticationHandlerServiceAsync.SignOutAsync().ConfigureAwait(true);
             return new OkObjectResult("Sign out Successful");
         }
 
@@ -67,7 +67,7 @@ namespace Antl.WebServer.Api.Controllers
         {
             var claims = new[]
             {
-                new Claim("UUID", user.Id.ToString())
+                new Claim("EID", user.ExternalId)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["SecurityKey"]));
