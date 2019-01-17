@@ -26,7 +26,7 @@ namespace Antl.WebServer.Api.Controllers
         public virtual async Task<IActionResult> GetAllAsync() =>
             Ok(await _service.GetAllAsync().ConfigureAwait(true));
 
-        [HttpGet("{id}")]
+        [HttpGet("{externalId}")]
         public virtual async Task<IActionResult> GetAsync(string externalId)
         {
             var entity = (await _service.GetByExternalIdAsync(externalId).ConfigureAwait(true));
