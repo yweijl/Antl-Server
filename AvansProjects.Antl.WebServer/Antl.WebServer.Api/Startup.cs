@@ -45,6 +45,9 @@ namespace Antl.WebServer.Api
                 .AddEntityFrameworkStores<AntlContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddDbContext<AntlContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
