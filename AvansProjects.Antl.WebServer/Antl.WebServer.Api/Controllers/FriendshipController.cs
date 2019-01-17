@@ -26,10 +26,12 @@ namespace Antl.WebServer.Api.Controllers
         [HttpPost]
         public override async Task<IActionResult> PostAsync([FromBody] FriendshipDto friendshipDto)
         {
+            int.TryParse(_userManager.GetUserId(User), out var userId);
+
             if (friendshipDto == null || !ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var entity = await _friendshipService.AddAsync(friendshipDto).ConfigureAwait(true);
+            var entity = await _friendshipService.AddAsync(friendshipDto, userId).ConfigureAwait(true);
             return entity == null
                 ? (IActionResult)NotFound($"Could not add {typeof(FriendshipDto).Name}")
                 : Ok(entity);

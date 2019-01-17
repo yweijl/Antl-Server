@@ -10,7 +10,7 @@ namespace Antl.WebServer.Infrastructure.Data
             var friendShip = new Friendship
             {
                     ApplicationUser = user,
-                    ApplicationUserTwo = userTwo
+                    ApplicationUserFriend = userTwo
             };
 
             return friendShip;

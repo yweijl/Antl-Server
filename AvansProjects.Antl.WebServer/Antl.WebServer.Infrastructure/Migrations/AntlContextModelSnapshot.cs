@@ -123,15 +123,15 @@ namespace Antl.WebServer.Infrastructure.Migrations
                 {
                     b.Property<int>("ApplicationUserId");
 
-                    b.Property<int>("ApplicationUserTwoId");
+                    b.Property<int>("ApplicationUserFriendId");
 
                     b.Property<string>("ExternalId");
 
                     b.Property<int>("Id");
 
-                    b.HasKey("ApplicationUserId", "ApplicationUserTwoId");
+                    b.HasKey("ApplicationUserId", "ApplicationUserFriendId");
 
-                    b.HasIndex("ApplicationUserTwoId");
+                    b.HasIndex("ApplicationUserFriendId");
 
                     b.ToTable("FriendShips");
                 });
@@ -305,14 +305,14 @@ namespace Antl.WebServer.Infrastructure.Migrations
 
             modelBuilder.Entity("Antl.WebServer.Entities.Friendship", b =>
                 {
+                    b.HasOne("Antl.WebServer.Entities.ApplicationUser", "ApplicationUserFriend")
+                        .WithMany("USerFriendships")
+                        .HasForeignKey("ApplicationUserFriendId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("Antl.WebServer.Entities.ApplicationUser", "ApplicationUser")
                         .WithMany("Friendships")
                         .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Antl.WebServer.Entities.ApplicationUser", "ApplicationUserTwo")
-                        .WithMany("USerFriendships")
-                        .HasForeignKey("ApplicationUserTwoId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

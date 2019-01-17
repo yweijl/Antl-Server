@@ -37,7 +37,7 @@ namespace Antl.WebServer.Infrastructure
                 .HasForeignKey(pc => pc.GroupId);
 
 
-            modelBuilder.Entity<Friendship>().HasKey(k => new {k.ApplicationUserId, k.ApplicationUserTwoId});
+            modelBuilder.Entity<Friendship>().HasKey(k => new {k.ApplicationUserId, ApplicationUserTwoId = k.ApplicationUserFriendId});
 
             modelBuilder.Entity<Friendship>()
                 .HasOne(fs => fs.ApplicationUser)
@@ -45,9 +45,9 @@ namespace Antl.WebServer.Infrastructure
                 .HasForeignKey(fs => fs.ApplicationUserId).OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Friendship>()
-                .HasOne(fs => fs.ApplicationUserTwo)
+                .HasOne(fs => fs.ApplicationUserFriend)
                 .WithMany(u => u.USerFriendships)
-                .HasForeignKey(fs => fs.ApplicationUserTwoId).OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey(fs => fs.ApplicationUserFriendId).OnDelete(DeleteBehavior.Restrict);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

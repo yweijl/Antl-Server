@@ -197,20 +197,20 @@ namespace Antl.WebServer.Infrastructure.Migrations
                     Id = table.Column<int>(nullable: false),
                     ExternalId = table.Column<string>(nullable: true),
                     ApplicationUserId = table.Column<int>(nullable: false),
-                    ApplicationUserTwoId = table.Column<int>(nullable: false)
+                    ApplicationUserFriendId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FriendShips", x => new { x.ApplicationUserId, x.ApplicationUserTwoId });
+                    table.PrimaryKey("PK_FriendShips", x => new { x.ApplicationUserId, x.ApplicationUserFriendId });
                     table.ForeignKey(
-                        name: "FK_FriendShips_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
+                        name: "FK_FriendShips_AspNetUsers_ApplicationUserFriendId",
+                        column: x => x.ApplicationUserFriendId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_FriendShips_AspNetUsers_ApplicationUserTwoId",
-                        column: x => x.ApplicationUserTwoId,
+                        name: "FK_FriendShips_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -334,9 +334,9 @@ namespace Antl.WebServer.Infrastructure.Migrations
                 column: "EventId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FriendShips_ApplicationUserTwoId",
+                name: "IX_FriendShips_ApplicationUserFriendId",
                 table: "FriendShips",
-                column: "ApplicationUserTwoId");
+                column: "ApplicationUserFriendId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserEventDates_ApplicationUserId",
