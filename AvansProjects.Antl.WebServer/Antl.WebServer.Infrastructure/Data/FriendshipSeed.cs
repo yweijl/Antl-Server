@@ -9,8 +9,8 @@ namespace Antl.WebServer.Infrastructure.Data
         {
             var friendShip = new Friendship
             {
-                    ApplicationUser = user,
-                    ApplicationUserFriend = userTwo
+                    LeftApplicationUser = user,
+                    RightApplicationUser = userTwo
             };
 
             return friendShip;

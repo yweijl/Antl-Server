@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Antl.WebServer.Infrastructure.Migrations
 {
     [DbContext(typeof(AntlContext))]
-    [Migration("20190117143053_Init")]
+    [Migration("20190118102746_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -123,19 +123,19 @@ namespace Antl.WebServer.Infrastructure.Migrations
 
             modelBuilder.Entity("Antl.WebServer.Entities.Friendship", b =>
                 {
-                    b.Property<int>("ApplicationUserId");
+                    b.Property<int>("LeftApplicationUserId");
 
-                    b.Property<int>("ApplicationUserFriendId");
+                    b.Property<int>("RightApplicationUserId");
 
                     b.Property<string>("ExternalId");
 
                     b.Property<int>("Id");
 
-                    b.HasKey("ApplicationUserId", "ApplicationUserFriendId");
+                    b.HasKey("LeftApplicationUserId", "RightApplicationUserId");
 
-                    b.HasIndex("ApplicationUserFriendId");
+                    b.HasIndex("RightApplicationUserId");
 
-                    b.ToTable("FriendShips");
+                    b.ToTable("Friendships");
                 });
 
             modelBuilder.Entity("Antl.WebServer.Entities.Group", b =>
@@ -307,15 +307,13 @@ namespace Antl.WebServer.Infrastructure.Migrations
 
             modelBuilder.Entity("Antl.WebServer.Entities.Friendship", b =>
                 {
-                    b.HasOne("Antl.WebServer.Entities.ApplicationUser", "ApplicationUserFriend")
-                        .WithMany("USerFriendships")
-                        .HasForeignKey("ApplicationUserFriendId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                    b.HasOne("Antl.WebServer.Entities.ApplicationUser", "LeftApplicationUser")
+                        .WithMany("LeftFriendships")
+                        .HasForeignKey("LeftApplicationUserId");
 
-                    b.HasOne("Antl.WebServer.Entities.ApplicationUser", "ApplicationUser")
-                        .WithMany("Friendships")
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                    b.HasOne("Antl.WebServer.Entities.ApplicationUser", "RightApplicationUser")
+                        .WithMany("RightFriendships")
+                        .HasForeignKey("RightApplicationUserId");
                 });
 
             modelBuilder.Entity("Antl.WebServer.Entities.UserEventDate", b =>

@@ -15,7 +15,7 @@ namespace Antl.WebServer.Infrastructure
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<Group> Groups { get; set; }
-        public DbSet<Friendship> FriendShips { get; set; }
+        public DbSet<Friendship> Friendships { get; set; }
         public DbSet<UserGroup> UserGroups { get; set; }
         public DbSet<EventDate> EventDates { get; set; }
         public DbSet<UserEventDate> UserEventDates { get; set; }
@@ -36,18 +36,20 @@ namespace Antl.WebServer.Infrastructure
                 .WithMany(p => p.UserGroups)
                 .HasForeignKey(pc => pc.GroupId);
 
+            modelBuilder.Entity<Friendship>(entity =>
+            {
+                entity.HasKey(e => new { ApplicationUserId = e.LeftApplicationUserId, ApplicationUserFriendId = e.RightApplicationUserId });
 
-            modelBuilder.Entity<Friendship>().HasKey(k => new {k.ApplicationUserId, ApplicationUserTwoId = k.ApplicationUserFriendId});
+                entity.HasOne(d => d.RightApplicationUser)
+                    .WithMany(p => p.RightFriendships)
+                    .HasForeignKey(d => d.RightApplicationUserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
 
-            modelBuilder.Entity<Friendship>()
-                .HasOne(fs => fs.ApplicationUser)
-                .WithMany(u => u.Friendships)
-                .HasForeignKey(fs => fs.ApplicationUserId).OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Friendship>()
-                .HasOne(fs => fs.ApplicationUserFriend)
-                .WithMany(u => u.USerFriendships)
-                .HasForeignKey(fs => fs.ApplicationUserFriendId).OnDelete(DeleteBehavior.Restrict);
+                entity.HasOne(d => d.LeftApplicationUser)
+                    .WithMany(p => p.LeftFriendships)
+                    .HasForeignKey(d => d.LeftApplicationUserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+            });
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }

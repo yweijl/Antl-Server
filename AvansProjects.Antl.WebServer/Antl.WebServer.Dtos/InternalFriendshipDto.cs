@@ -8,7 +8,7 @@ namespace Antl.WebServer.Dtos
 {
     public class InternalFriendshipProjection : FriendshipDto
     {
-        public ApplicationUser ApplicationUser { get; set; }
-        public ApplicationUser ApplicationUserFriend { get; set; }
+        public ApplicationUser LeftApplicationUser { get; set; }
+        public ApplicationUser RightApplicationUser { get; set; }
     }
 }
