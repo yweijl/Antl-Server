@@ -76,6 +76,7 @@ namespace Antl.WebServer.Api.Controllers
                 "https://antlwebserver.azurewebsites.net",
                 "https://antlwebserver.azurewebsites.net",
                 claims,
+                expires: DateTime.MaxValue,
                 signingCredentials: credentials
             );
 
