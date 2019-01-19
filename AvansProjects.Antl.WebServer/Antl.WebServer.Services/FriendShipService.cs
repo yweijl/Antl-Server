@@ -1,13 +1,11 @@
-﻿using Antl.WebServer.Dtos;
+﻿using AgileObjects.AgileMapper;
+using Antl.WebServer.Dtos;
 using Antl.WebServer.Entities;
 using Antl.WebServer.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using AgileObjects.AgileMapper;
-using AgileObjects.AgileMapper.Extensions;
 
 namespace Antl.WebServer.Services
 {
@@ -40,20 +38,19 @@ namespace Antl.WebServer.Services
 
         public async Task<List<FriendDto>> GetListAsync(int id)
         {
-            var friendshipList =
-                (await _genericRepository.GetListAsync(x => x.ApplicationUserId == id || x.ApplicationUserFriendId == id)
-                    .ConfigureAwait(false)).SelectMany(i => new[] {i.ApplicationUserId, i.ApplicationUserFriendId})
-                .Where(x => x != id).ToArray();
+            var friendList = await _userRepository.GetListAsync(x =>
+                x.Id != id && x.LeftFriendships.Any(y => y.LeftApplicationUserId == id || y.RightApplicationUserId == id) ||
+                x.RightFriendships.Any(y => y.LeftApplicationUserId == id || y.RightApplicationUserId == id));
 
-            return Mapper.Map(await _userRepository.GetListAsync(x => friendshipList.Contains(x.Id))).ToANew<List<FriendDto>>();
+            return Mapper.Map(friendList).ToANew<List<FriendDto>>();
         }
 
         private static InternalFriendshipProjection GetInternalFriendship(ApplicationUser userOne, ApplicationUser userTwo)
         {
             return new InternalFriendshipProjection
             {
-                ApplicationUser = (userOne.Id < userTwo.Id) ? userOne : userTwo,
-                ApplicationUserFriend = (userOne.Id > userTwo.Id) ? userOne : userTwo
+                LeftApplicationUser = (userOne.Id < userTwo.Id) ? userOne : userTwo,
+                RightApplicationUser = (userOne.Id > userTwo.Id) ? userOne : userTwo
             };
         }
     }
