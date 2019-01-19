@@ -22,8 +22,7 @@ namespace Antl.WebServer.Services
         public async Task RegisterAsync(RegisterDto registerDto)
         {
             var user = Mapper.Map(registerDto).ToANew<ApplicationUser>();
-            user.ExternalId = string.Join("-", new Random().Next(1000, 9999).ToString(),
-                new Random().Next(1000, 9999).ToString(), new Random().Next(1000, 9999).ToString());
+            user.ExternalId = GenerateExternalId.Generate();
 
             var result = await _userManager.CreateAsync(user, registerDto.Password).ConfigureAwait(false);
             if (!result.Succeeded) throw new ArgumentNullException(nameof(result));

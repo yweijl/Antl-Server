@@ -1,4 +1,5 @@
-﻿using Antl.WebServer.Dtos;
+﻿using System.Threading.Tasks;
+using Antl.WebServer.Dtos;
 using Antl.WebServer.Entities;
 using Antl.WebServer.Interfaces;
 using Microsoft.AspNetCore.Identity;
@@ -11,6 +12,12 @@ namespace Antl.WebServer.Api.Controllers
     {
         public EventController(IGenericServiceAsync<EventDto, Event> service) : base(service)
         {
+        }
+
+        [HttpPost]
+        public override Task<IActionResult> PostAsync(EventDto dto)
+        {
+            return base.PostAsync(dto);
         }
     }
 }

@@ -74,9 +74,9 @@ namespace Antl.WebServer.Api.Controllers
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                issuer: "http://localhost:44362/api",
-                audience: "http://localhost:44362/api",
-                claims: claims,
+                "https://antlwebserver.azurewebsites.net",
+                "https://antlwebserver.azurewebsites.net",
+                claims,
                 expires: DateTime.Now.AddMinutes(5),
                 signingCredentials: credentials
             );
