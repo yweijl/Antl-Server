@@ -1,5 +1,7 @@
 ﻿using Antl.WebServer.Dtos;
+using Antl.WebServer.Entities;
 using Antl.WebServer.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -9,9 +11,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using AgileObjects.AgileMapper;
-using Antl.WebServer.Entities;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Antl.WebServer.Api.Controllers
 {
@@ -63,7 +62,7 @@ namespace Antl.WebServer.Api.Controllers
             return new OkObjectResult("Sign out Successful");
         }
 
-        private string RequestToken(ApplicationUser user)
+        private string RequestToken(IEntity user)
         {
             var claims = new[]
             {
@@ -77,7 +76,6 @@ namespace Antl.WebServer.Api.Controllers
                 "https://antlwebserver.azurewebsites.net",
                 "https://antlwebserver.azurewebsites.net",
                 claims,
-                expires: DateTime.Now.AddMinutes(5),
                 signingCredentials: credentials
             );
 

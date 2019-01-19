@@ -12,7 +12,7 @@ namespace Antl.WebServer.Entities
         public virtual ICollection<UserGroup> UserGroups { get; set; }
         public virtual ICollection<UserEventDate> UserEventAvailabilities { get; set; }
         public virtual ICollection<Event> Events { get; set; }
-        public virtual ICollection<Friendship> Friendships { get; set; }
-        public virtual ICollection<Friendship> USerFriendships  { get; set; }
+        public virtual ICollection<Friendship> LeftFriendships { get; set; }
+        public virtual ICollection<Friendship> RightFriendships  { get; set; }
     }
 }

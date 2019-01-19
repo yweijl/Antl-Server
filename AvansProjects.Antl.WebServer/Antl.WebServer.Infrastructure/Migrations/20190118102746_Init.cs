@@ -191,26 +191,26 @@ namespace Antl.WebServer.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FriendShips",
+                name: "Friendships",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false),
                     ExternalId = table.Column<string>(nullable: true),
-                    ApplicationUserId = table.Column<int>(nullable: false),
-                    ApplicationUserFriendId = table.Column<int>(nullable: false)
+                    LeftApplicationUserId = table.Column<int>(nullable: false),
+                    RightApplicationUserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FriendShips", x => new { x.ApplicationUserId, x.ApplicationUserFriendId });
+                    table.PrimaryKey("PK_Friendships", x => new { x.LeftApplicationUserId, x.RightApplicationUserId });
                     table.ForeignKey(
-                        name: "FK_FriendShips_AspNetUsers_ApplicationUserFriendId",
-                        column: x => x.ApplicationUserFriendId,
+                        name: "FK_Friendships_AspNetUsers_LeftApplicationUserId",
+                        column: x => x.LeftApplicationUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_FriendShips_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
+                        name: "FK_Friendships_AspNetUsers_RightApplicationUserId",
+                        column: x => x.RightApplicationUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -334,9 +334,9 @@ namespace Antl.WebServer.Infrastructure.Migrations
                 column: "EventId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FriendShips_ApplicationUserFriendId",
-                table: "FriendShips",
-                column: "ApplicationUserFriendId");
+                name: "IX_Friendships_RightApplicationUserId",
+                table: "Friendships",
+                column: "RightApplicationUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserEventDates_ApplicationUserId",
@@ -372,7 +372,7 @@ namespace Antl.WebServer.Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "FriendShips");
+                name: "Friendships");
 
             migrationBuilder.DropTable(
                 name: "UserEventDates");
