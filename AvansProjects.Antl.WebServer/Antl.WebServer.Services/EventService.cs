@@ -2,7 +2,6 @@
 using Antl.WebServer.Dtos;
 using Antl.WebServer.Entities;
 using Antl.WebServer.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -35,7 +34,7 @@ namespace Antl.WebServer.Services
             };
         }
 
-        public async Task<List<Event>> GetListAsync(UpdateEventDto updateEventDto)
+        public async Task<List<SendEventDto>> GetListAsync(UpdateEventDto updateEventDto)
         {
            var events = await _eventRepository.GetListAsync(x => updateEventDto.ExternalId.Contains(x.ExternalId)).ConfigureAwait(false);
            foreach (var @event in events)
@@ -43,7 +42,7 @@ namespace Antl.WebServer.Services
                @event.EventDates = await _eventDateRepository.GetListAsync(x => x.EventId == @event.Id).ConfigureAwait(false);
            }
 
-           return events;
+           return Mapper.Map(events).ToANew<List<SendEventDto>>().ToList();
         }
 
         public async Task<List<EventSyncDto>> GetHashList(int userId)
