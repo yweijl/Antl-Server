@@ -134,6 +134,7 @@ namespace Antl.WebServer.Api
 
             // Generic Repositories Dependency injection
             services.AddScoped(typeof(IGenericRepository<Event>), typeof(GenericRepository<Event>));
+            services.AddScoped(typeof(IGenericRepository<EventDate>), typeof(GenericRepository<EventDate>));
             services.AddScoped(typeof(IGenericRepository<ApplicationUser>), typeof(GenericRepository<ApplicationUser>));
             services.AddScoped(typeof(IGenericRepository<Friendship>), typeof(GenericRepository<Friendship>));
         }
