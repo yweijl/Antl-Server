@@ -11,5 +11,6 @@ namespace Antl.WebServer.Interfaces
     {
         Task<List<FriendDto>> GetListAsync(int id);
         Task<Friendship> AddAsync(FriendshipDto dto, int userId);
+        Task<bool> DeleteAsync(FriendDto dto, int userId);
     }
 }
