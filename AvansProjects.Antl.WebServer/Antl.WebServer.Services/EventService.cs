@@ -24,33 +24,36 @@ namespace Antl.WebServer.Services
         {
             var internalDto = Mapper.Map(dto).ToANew<InternalEventDto>();
             internalDto.EventOwner = await _userRepository.GetAsync(x => x.Id == userId).ConfigureAwait(false);
+            internalDto.Hash = internalDto.GetHashCode();
             var @event = await base.AddAsync(internalDto).ConfigureAwait(true);
             return new EventSyncDto
             {
                 ExternalId = @event.ExternalId,
-                Hash = @event.GetHashCode()
+                Hash = @event.Hash
             };
+        }
+
+        public Task<List<Event>> GetListAsync(UpdateEventDto updateEventDto)
+        {
+           return _eventRepository.GetListAsync(x => updateEventDto.ExternalId.Contains(x.ExternalId));
         }
 
         public async Task<List<EventSyncDto>> GetHashList(int userId)
         {
             var eventSyncList = new List<EventSyncDto>();
-            var events = await _eventRepository.GetListAsync(x => x.EventOwnerId == userId && x.IsDeleted != true).ConfigureAwait(false);
+            var events = await _eventRepository.GetListAsync(x => x.EventOwnerId == userId && x.IsDeleted != true)
+                .ConfigureAwait(false);
+
             foreach (var @event in events)
             {
                 eventSyncList.Add(new EventSyncDto
                 {
                     ExternalId = @event.ExternalId,
-                    Hash = @event.GetHashCode()
+                    Hash = @event.Hash
                 });
             }
 
             return eventSyncList;
-        }
-
-        public Task<List<EventDto>> GetListAsync(int id)
-        {
-            throw new NotImplementedException();
         }
     }
 }

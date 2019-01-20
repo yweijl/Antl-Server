@@ -9,7 +9,7 @@ namespace Antl.WebServer.Interfaces
 {
     public interface IEventService
     {
-        Task<List<EventDto>> GetListAsync(int id);
+        Task<List<Event>> GetListAsync(UpdateEventDto updateEventDto);
         Task<List<EventSyncDto>> GetHashList(int userId);
         Task<EventSyncDto> AddAsync(EventDto eventDto, int userId);
     }

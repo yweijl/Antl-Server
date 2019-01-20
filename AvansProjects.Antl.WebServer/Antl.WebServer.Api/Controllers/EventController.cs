@@ -30,6 +30,16 @@ namespace Antl.WebServer.Api.Controllers
                 : Ok(result);
         }
 
+        [HttpPost("sync")]
+        public async Task<IActionResult> UpdateEventsAsync(UpdateEventDto updateEventDto)
+        {
+            var result = await _eventService.GetListAsync(updateEventDto).ConfigureAwait(true);
+
+            return result == null
+                ? (IActionResult)NotFound($"Could not add {typeof(EventDto).Name}")
+                : Ok(result);
+        }
+
         [HttpGet("sync")]
         public async Task<IActionResult> SyncAsync()
         {
