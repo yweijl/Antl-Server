@@ -32,18 +32,18 @@ namespace Antl.WebServer.Services
 
         public async Task<List<EventSyncDto>> GetHashList(int userId)
         {
-            var EventSyncList = new List<EventSyncDto>();
+            var eventSyncList = new List<EventSyncDto>();
             var events = await _genericRepository.GetListAsync(x => x.EventOwnerId == userId && x.IsDeleted != true).ConfigureAwait(false);
             foreach (var @event in events)
             {
-                EventSyncList.Add(new EventSyncDto
+                eventSyncList.Add(new EventSyncDto
                 {
                     ExternalId = @event.ExternalId,
                     Hash = @event.GetHashCode()
                 });
             }
 
-            return EventSyncList;
+            return eventSyncList;
         }
 
         public Task<List<EventDto>> GetListAsync(int id)

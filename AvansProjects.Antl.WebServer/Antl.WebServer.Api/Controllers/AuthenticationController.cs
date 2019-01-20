@@ -73,8 +73,10 @@ namespace Antl.WebServer.Api.Controllers
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                "https://antlwebserver.azurewebsites.net",
-                "https://antlwebserver.azurewebsites.net",
+                "http://10.0.2.2:64151",
+                "http://10.0.2.2:64151",
+                //"https://antlwebserver.azurewebsites.net",
+                //"https://antlwebserver.azurewebsites.net",
                 claims,
                 expires: DateTime.MaxValue,
                 signingCredentials: credentials
