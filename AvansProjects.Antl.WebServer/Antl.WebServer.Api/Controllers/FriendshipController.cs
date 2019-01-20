@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Antl.WebServer.Services;
 using Microsoft.AspNetCore.Identity;
+using NuGet.Frameworks;
 
 namespace Antl.WebServer.Api.Controllers
 {
@@ -47,6 +48,18 @@ namespace Antl.WebServer.Api.Controllers
             return result == null
                 ? (IActionResult)NotFound($"Could not retrieve list {typeof(FriendDto).Name}")
                 : Ok(result);
+        }
+
+        [HttpDelete("delete")]
+        public async Task<IActionResult> DeleteAsync([FromBody] FriendDto friendDto)
+        {
+            int.TryParse(_userManager.GetUserId(User), out var userId);
+
+            var result = await _friendshipService.DeleteAsync(friendDto, userId).ConfigureAwait(true);
+
+            return result
+                ? Ok(result)
+                : (IActionResult) NotFound($"Could not delete {typeof(FriendDto).Name}");
         }
     }
 }

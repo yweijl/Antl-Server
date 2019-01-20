@@ -36,6 +36,14 @@ namespace Antl.WebServer.Services
             return await base.AddAsync(internalFriendship).ConfigureAwait(false);
         }
 
+        public async Task<bool> DeleteAsync(FriendDto dto, int requesterId)
+        {
+            var friendship = await _genericRepository.GetAsync(x =>
+                (x.LeftApplicationUser.Id == requesterId && x.RightApplicationUser.ExternalId == dto.ExternalId) ||
+                (x.RightApplicationUser.Id == requesterId && x.LeftApplicationUser.ExternalId == dto.ExternalId));
+            return  await base.DeleteAsync(friendship.ExternalId);
+        }
+
         public async Task<List<FriendDto>> GetListAsync(int id)
         {
             var friendList = await _userRepository.GetListAsync(x =>
