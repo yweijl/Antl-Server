@@ -12,12 +12,14 @@ namespace Antl.WebServer.Services
     public class EventService : GenericServiceAsync<EventDto, Event>, IEventService
     {
         private readonly IGenericRepository<Event> _eventRepository;
+        private readonly IGenericRepository<EventDate> _eventDateRepository;
         private readonly IGenericRepository<ApplicationUser> _userRepository;
 
-        public EventService(IGenericRepository<Event> eventRepository, IGenericRepository<ApplicationUser> userRepository) : base(eventRepository)
+        public EventService(IGenericRepository<Event> eventRepository, IGenericRepository<ApplicationUser> userRepository, IGenericRepository<EventDate> eventDateRepository) : base(eventRepository)
         {
             _eventRepository = eventRepository;
             _userRepository = userRepository;
+            _eventDateRepository = eventDateRepository;
         }
 
         public async Task<EventSyncDto> AddAsync(EventDto dto, int userId)
@@ -33,9 +35,15 @@ namespace Antl.WebServer.Services
             };
         }
 
-        public Task<List<Event>> GetListAsync(UpdateEventDto updateEventDto)
+        public async Task<List<Event>> GetListAsync(UpdateEventDto updateEventDto)
         {
-           return _eventRepository.GetListAsync(x => updateEventDto.ExternalId.Contains(x.ExternalId));
+           var events = await _eventRepository.GetListAsync(x => updateEventDto.ExternalId.Contains(x.ExternalId)).ConfigureAwait(false);
+           foreach (var @event in events)
+           {
+               @event.EventDates = await _eventDateRepository.GetListAsync(x => x.EventId == @event.Id).ConfigureAwait(false);
+           }
+
+           return events;
         }
 
         public async Task<List<EventSyncDto>> GetHashList(int userId)
