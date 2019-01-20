@@ -11,13 +11,11 @@ namespace Antl.WebServer.Services
 {
     public class FriendshipService : GenericServiceAsync<FriendshipDto, Friendship> , IFriendshipService
     {
-        private readonly IGenericRepository<Friendship> _genericRepository;
         private readonly IGenericRepository<ApplicationUser> _userRepository;
 
         public FriendshipService(IGenericRepository<Friendship> genericRepository,
             IGenericRepository<ApplicationUser> userRepository) : base(genericRepository)
         {
-            _genericRepository = genericRepository;
             _userRepository = userRepository;
         }
 
@@ -39,9 +37,9 @@ namespace Antl.WebServer.Services
         public async Task<List<FriendDto>> GetListAsync(int id)
         {
             var friendList = await _userRepository.GetListAsync(x =>
-                x.Id != id && x.LeftFriendships.Any(y => y.LeftApplicationUserId == id || y.RightApplicationUserId == id) ||
-                x.RightFriendships.Any(y => y.LeftApplicationUserId == id || y.RightApplicationUserId == id));
-
+                x.Id != id && (x.LeftFriendships.Any(y => y.LeftApplicationUserId == id || y.RightApplicationUserId == id) ||
+                x.RightFriendships.Any(y => y.LeftApplicationUserId == id || y.RightApplicationUserId == id)));
+           
             return Mapper.Map(friendList).ToANew<List<FriendDto>>();
         }
 

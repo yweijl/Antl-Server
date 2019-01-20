@@ -4,6 +4,7 @@ using Antl.WebServer.Entities;
 using Antl.WebServer.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Antl.WebServer.Services
@@ -19,16 +20,17 @@ namespace Antl.WebServer.Services
             _signInManager = signInManager;
         }
 
-        public async Task RegisterAsync(RegisterDto registerDto)
+        public async Task<string> RegisterAsync(RegisterDto registerDto)
         {
             var user = Mapper.Map(registerDto).ToANew<ApplicationUser>();
             user.ExternalId = Generate.ExternalId();
 
             var result = await _userManager.CreateAsync(user, registerDto.Password).ConfigureAwait(false);
-            if (!result.Succeeded) throw new ArgumentNullException(nameof(result));
+            if (!result.Succeeded) return "Something went wrong while registering";
 
             await _userManager.AddToRoleAsync(user, "User").ConfigureAwait(false);
             await _signInManager.SignInAsync(user, isPersistent: false).ConfigureAwait(false);
+            return "Account created";
         }
 
         public Task<bool> SignInAsync(SignInDto signInDto)

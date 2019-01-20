@@ -15,7 +15,7 @@ namespace Antl.WebServer.Entities
         public bool IsOwner { get; set; }
         public bool? IsDeleted { get; set; }
         public int? EventOwnerId { get; set; }
-        public ApplicationUser EventOwner { get; set; }
+        public virtual ApplicationUser EventOwner { get; set; }
         public virtual ICollection<EventDate> EventDates { get; set; }
     }
 }

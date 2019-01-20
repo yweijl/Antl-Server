@@ -11,17 +11,19 @@ namespace Antl.WebServer.Services
 {
     public class EventService : GenericServiceAsync<EventDto, Event>, IEventService
     {
-        private readonly IGenericRepository<Event> _genericRepository;
+        private readonly IGenericRepository<Event> _eventRepository;
+        private readonly IGenericRepository<ApplicationUser> _userRepository;
 
-        public EventService(IGenericRepository<Event> genericRepository) : base(genericRepository)
+        public EventService(IGenericRepository<Event> eventRepository, IGenericRepository<ApplicationUser> userRepository) : base(eventRepository)
         {
-            _genericRepository = genericRepository;
+            _eventRepository = eventRepository;
+            _userRepository = userRepository;
         }
 
         public async Task<EventSyncDto> AddAsync(EventDto dto, int userId)
         {
             var internalDto = Mapper.Map(dto).ToANew<InternalEventDto>();
-            internalDto.EventOwnerId = userId;
+            internalDto.EventOwner = await _userRepository.GetAsync(x => x.Id == userId).ConfigureAwait(false);
             var @event = await base.AddAsync(internalDto).ConfigureAwait(true);
             return new EventSyncDto
             {
@@ -33,7 +35,7 @@ namespace Antl.WebServer.Services
         public async Task<List<EventSyncDto>> GetHashList(int userId)
         {
             var eventSyncList = new List<EventSyncDto>();
-            var events = await _genericRepository.GetListAsync(x => x.EventOwnerId == userId && x.IsDeleted != true).ConfigureAwait(false);
+            var events = await _eventRepository.GetListAsync(x => x.EventOwnerId == userId && x.IsDeleted != true).ConfigureAwait(false);
             foreach (var @event in events)
             {
                 eventSyncList.Add(new EventSyncDto

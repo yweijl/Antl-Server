@@ -35,9 +35,9 @@ namespace Antl.WebServer.Api.Controllers
             if (!ModelState.IsValid || registerDto == null)
                 return BadRequest(ModelState);
 
-            await _authenticationHandlerServiceAsync.RegisterAsync(registerDto).ConfigureAwait(true);
+            var result = await _authenticationHandlerServiceAsync.RegisterAsync(registerDto).ConfigureAwait(true);
 
-            return new OkObjectResult("Account created");
+            return new OkObjectResult(result);
         }
 
         [AllowAnonymous]
@@ -48,9 +48,8 @@ namespace Antl.WebServer.Api.Controllers
                 return BadRequest(ModelState);
 
             var result = await _authenticationHandlerServiceAsync.SignInAsync(signInRequest).ConfigureAwait(true);
-            if (!result) throw new UnauthorizedAccessException("Invalid login attempt");
-
-            ApplicationUser user = await _authenticationHandlerServiceAsync.GetUserAsync(signInRequest.UserName).ConfigureAwait(true);
+            if (!result) return BadRequest("Unable to login");
+            var user = await _authenticationHandlerServiceAsync.GetUserAsync(signInRequest.UserName).ConfigureAwait(true);
 
             return Ok(RequestToken(user));
         }
@@ -73,10 +72,13 @@ namespace Antl.WebServer.Api.Controllers
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                "http://10.0.2.2:64151",
-                "http://10.0.2.2:64151",
-                //"https://antlwebserver.azurewebsites.net",
-                //"https://antlwebserver.azurewebsites.net",
+#if DEBUG
+                "http://localhost:64151",
+                "http://localhost:64151",
+#else
+                "https://antlwebserver.azurewebsites.net",
+                "https://antlwebserver.azurewebsites.net",
+#endif
                 claims,
                 expires: DateTime.MaxValue,
                 signingCredentials: credentials
