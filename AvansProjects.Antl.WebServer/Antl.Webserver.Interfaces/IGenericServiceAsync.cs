@@ -10,7 +10,7 @@ namespace Antl.WebServer.Interfaces
         where TDto : class, IDto
         where TEntity : IEntity
     {
-        Task<string> AddAsync(TDto tDto);
+        Task<TEntity> AddAsync(TDto tDto);
         Task<ICollection<TEntity>> GetAllAsync();
         Task<TEntity> GetByIdAsync(int id);
         Task<TEntity> GetByExternalIdAsync(string externalId);

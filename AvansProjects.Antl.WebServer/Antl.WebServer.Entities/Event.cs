@@ -13,6 +13,7 @@ namespace Antl.WebServer.Entities
         public DateTime? MainDateTime { get; set; }
         public string Location { get; set; }
         public bool IsOwner { get; set; }
+        public bool? IsDeleted { get; set; }
         public int? EventOwnerId { get; set; }
         public ApplicationUser EventOwner { get; set; }
         public virtual ICollection<EventDate> EventDates { get; set; }

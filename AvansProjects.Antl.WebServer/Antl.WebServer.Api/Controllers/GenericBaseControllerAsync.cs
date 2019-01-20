@@ -43,7 +43,7 @@ namespace Antl.WebServer.Api.Controllers
                 return BadRequest(ModelState);
 
             var result = await _service.AddAsync(dto).ConfigureAwait(true);
-            return string.IsNullOrEmpty(result)
+            return result == null
                 ? (IActionResult)NotFound($"Could not add {typeof(TDto).Name}")
                 : Ok(result);
         }

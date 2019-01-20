@@ -24,7 +24,19 @@ namespace Antl.WebServer.Api.Controllers
         {
             int.TryParse(_userManager.GetUserId(User), out var userId);
             var result = await _eventService.AddAsync(eventDto, userId).ConfigureAwait(true);
-            return string.IsNullOrEmpty(result)
+
+            return result == null
+                ? (IActionResult)NotFound($"Could not add {typeof(EventDto).Name}")
+                : Ok(result);
+        }
+
+        [HttpGet("sync")]
+        public async Task<IActionResult> SyncAsync()
+        {
+            int.TryParse(_userManager.GetUserId(User), out var userId);
+            var result = await _eventService.GetHashList(userId).ConfigureAwait(false);
+
+            return result == null
                 ? (IActionResult)NotFound($"Could not add {typeof(EventDto).Name}")
                 : Ok(result);
         }

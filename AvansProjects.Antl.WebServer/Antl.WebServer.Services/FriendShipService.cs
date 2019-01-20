@@ -21,7 +21,7 @@ namespace Antl.WebServer.Services
             _userRepository = userRepository;
         }
 
-        public async Task<string> AddAsync(FriendshipDto dto, int userId)
+        public async Task<Friendship> AddAsync(FriendshipDto dto, int userId)
         {
             var user = await _userRepository.GetAsync(x => x.Id == userId).ConfigureAwait(false);
             var friend = await _userRepository.GetAsync(x => x.ExternalId.Equals(dto.FriendId)).ConfigureAwait(false);

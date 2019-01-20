@@ -22,11 +22,12 @@ namespace Antl.WebServer.Repositories
             _set = _context.Set<TEntity>() ?? throw new ArgumentNullException(nameof(TEntity));
         }
 
-        public async Task<bool> AddAsync(TEntity entity)
+        public async Task<TEntity> AddAsync(TEntity entity)
         {
             if (entity == null) throw new ArgumentNullException(nameof(entity));
             await _set.AddAsync(entity).ConfigureAwait(false);
-            return await _context.SaveChangesAsync().ConfigureAwait(false) > 0;
+            await _context.SaveChangesAsync().ConfigureAwait(false);
+            return await Task.FromResult(entity).ConfigureAwait(false);
         }
 
         public async Task<bool> DeleteAsync(TEntity entity)

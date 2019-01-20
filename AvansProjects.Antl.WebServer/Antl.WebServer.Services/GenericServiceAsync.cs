@@ -19,15 +19,12 @@ namespace Antl.WebServer.Services
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
 
-        public virtual async Task<string> AddAsync(TDto dto)
+        public virtual async Task<TEntity> AddAsync(TDto dto)
         {
             if (dto == null) throw new ArgumentNullException(nameof(dto));
             var entity = Mapper.Map(dto).ToANew<TEntity>();
-            entity.ExternalId = GenerateExternalId.Generate();
-
-            var result = await _repository.AddAsync(entity).ConfigureAwait(false);
-            return result ? entity.ExternalId
-                          : string.Empty;
+            entity.ExternalId = Generate.ExternalId();
+            return await _repository.AddAsync(entity).ConfigureAwait(false);
         }
 
         public virtual async  Task<bool> DeleteAsync(string externalId)
