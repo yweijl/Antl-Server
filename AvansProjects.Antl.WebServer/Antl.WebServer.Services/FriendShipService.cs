@@ -12,10 +12,12 @@ namespace Antl.WebServer.Services
     public class FriendshipService : GenericServiceAsync<FriendshipDto, Friendship> , IFriendshipService
     {
         private readonly IGenericRepository<ApplicationUser> _userRepository;
+        private readonly IGenericRepository<Friendship> _genericRepository;
 
         public FriendshipService(IGenericRepository<Friendship> genericRepository,
             IGenericRepository<ApplicationUser> userRepository) : base(genericRepository)
         {
+            _genericRepository = genericRepository;
             _userRepository = userRepository;
         }
 
