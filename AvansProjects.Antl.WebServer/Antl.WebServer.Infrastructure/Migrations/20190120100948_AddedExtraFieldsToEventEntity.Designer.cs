@@ -4,14 +4,16 @@ using Antl.WebServer.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Antl.WebServer.Infrastructure.Migrations
 {
     [DbContext(typeof(AntlContext))]
-    partial class AntlContextModelSnapshot : ModelSnapshot
+    [Migration("20190120100948_AddedExtraFieldsToEventEntity")]
+    partial class AddedExtraFieldsToEventEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,8 +90,6 @@ namespace Antl.WebServer.Infrastructure.Migrations
                     b.Property<int?>("EventOwnerId");
 
                     b.Property<string>("ExternalId");
-
-                    b.Property<int>("Hash");
 
                     b.Property<string>("ImagePath");
 

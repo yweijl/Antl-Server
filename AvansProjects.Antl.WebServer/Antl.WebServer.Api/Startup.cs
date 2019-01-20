@@ -53,8 +53,13 @@ namespace Antl.WebServer.Api
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
+#if DEBUG
+                    ValidIssuer = "http://localhost:64151",
+                    ValidAudience = "http://localhost:64151",
+#else
                     ValidIssuer = "https://antlwebserver.azurewebsites.net",
                     ValidAudience = "https://antlwebserver.azurewebsites.net",
+#endif
 
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["SecurityKey"]))
                 };
@@ -125,13 +130,12 @@ namespace Antl.WebServer.Api
             services.AddScoped(typeof(IGenericServiceAsync<FriendshipDto, Friendship>), typeof(GenericServiceAsync<FriendshipDto, Friendship>));
             services.AddScoped(typeof(IAuthenticationHandlerServiceAsync), typeof(AuthenticationHandlerServiceAsyncAsync));
             services.AddScoped(typeof(IFriendshipService), typeof(FriendshipService));
+            services.AddScoped(typeof(IEventService), typeof(EventService));
 
             // Generic Repositories Dependency injection
             services.AddScoped(typeof(IGenericRepository<Event>), typeof(GenericRepository<Event>));
             services.AddScoped(typeof(IGenericRepository<ApplicationUser>), typeof(GenericRepository<ApplicationUser>));
             services.AddScoped(typeof(IGenericRepository<Friendship>), typeof(GenericRepository<Friendship>));
-            //services.AddScoped(typeof(IFriendshipRepository), typeof(FriendshipRepository));
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

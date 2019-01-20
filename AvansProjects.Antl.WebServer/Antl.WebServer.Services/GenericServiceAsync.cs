@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
-using AgileObjects.AgileMapper;
+﻿using AgileObjects.AgileMapper;
 using Antl.WebServer.Dtos;
 using Antl.WebServer.Entities;
 using Antl.WebServer.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace Antl.WebServer.Services{
+namespace Antl.WebServer.Services
+{
     public class GenericServiceAsync<TDto, TEntity> : IGenericServiceAsync<TDto, TEntity>
         where TDto : class, IDto
         where TEntity : IEntity
@@ -23,9 +23,8 @@ namespace Antl.WebServer.Services{
         {
             if (dto == null) throw new ArgumentNullException(nameof(dto));
             var entity = Mapper.Map(dto).ToANew<TEntity>();
-
-            var result = await _repository.AddAsync(entity).ConfigureAwait(false);
-            return await Task.FromResult(result).ConfigureAwait(false);
+            entity.ExternalId = Generate.ExternalId();
+            return await _repository.AddAsync(entity).ConfigureAwait(false);
         }
 
         public virtual async  Task<bool> DeleteAsync(string externalId)

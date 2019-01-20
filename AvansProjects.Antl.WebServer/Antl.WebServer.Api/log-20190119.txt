@@ -1,0 +1,24 @@
+2019-01-19 10:32:29.318 +01:00 [Information] Getting the motors running...
+2019-01-19 10:32:36.846 +01:00 [Information] User profile is available. Using '"C:\Users\weijl\AppData\Local\ASP.NET\DataProtection-Keys"' as key repository and Windows DPAPI to encrypt keys at rest.
+2019-01-19 10:32:37.987 +01:00 [Information] Entity Framework Core "2.1.4-rtm-31024" initialized '"AntlContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-01-19 10:32:46.421 +01:00 [Information] Executed DbCommand ("676"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[ExternalId], [a].[FirstName], [a].[LastName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]"
+2019-01-19 10:32:47.732 +01:00 [Information] Request starting HTTP/1.1 GET http://localhost:44354/index.html  
+2019-01-19 10:32:47.732 +01:00 [Information] Request starting HTTP/1.1 DEBUG http://localhost:64151/  0
+2019-01-19 10:32:47.852 +01:00 [Information] Request finished in 120.8291ms 200 
+2019-01-19 10:32:48.275 +01:00 [Information] Request finished in 543.8859ms 200 text/html
+2019-01-19 10:32:49.042 +01:00 [Information] Request starting HTTP/1.1 GET http://localhost:44354/swagger/v1/swagger.json  
+2019-01-19 10:32:49.820 +01:00 [Information] Request finished in 778.5001ms 200 application/json;charset=utf-8
+2019-01-19 10:37:07.117 +01:00 [Information] Getting the motors running...
+2019-01-19 10:37:10.093 +01:00 [Information] User profile is available. Using '"C:\Users\weijl\AppData\Local\ASP.NET\DataProtection-Keys"' as key repository and Windows DPAPI to encrypt keys at rest.
+2019-01-19 10:37:11.202 +01:00 [Information] Entity Framework Core "2.1.4-rtm-31024" initialized '"AntlContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-01-19 10:37:17.557 +01:00 [Information] Executed DbCommand ("25"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[ExternalId], [a].[FirstName], [a].[LastName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]"
+2019-01-19 10:37:18.049 +01:00 [Information] Request starting HTTP/1.1 DEBUG http://localhost:64151/  0
+2019-01-19 10:37:18.049 +01:00 [Information] Request starting HTTP/1.1 GET http://localhost:44354/index.html  
+2019-01-19 10:37:18.090 +01:00 [Information] Request finished in 39.9473ms 200 
+2019-01-19 10:37:18.215 +01:00 [Information] Request finished in 167.4147ms 200 text/html
+2019-01-19 10:37:18.875 +01:00 [Information] Request starting HTTP/1.1 GET http://localhost:44354/swagger/v1/swagger.json  
+2019-01-19 10:37:19.262 +01:00 [Information] Request finished in 387.063ms 200 application/json;charset=utf-8

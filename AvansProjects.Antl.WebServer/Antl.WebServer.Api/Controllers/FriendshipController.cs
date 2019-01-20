@@ -33,9 +33,9 @@ namespace Antl.WebServer.Api.Controllers
                 return BadRequest(ModelState);
             var result = await _friendshipService.AddAsync(friendshipDto, userId).ConfigureAwait(true);
 
-            return result != null
-                ? Ok("Friendship added")
-                : (IActionResult)UnprocessableEntity();
+            return result == null
+                    ? (IActionResult) UnprocessableEntity()
+                    : Ok("Friendship added");
         }
 
         [HttpGet("get")]

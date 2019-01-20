@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Antl.WebServer.Entities;
+using System.Security.AccessControl;
 
 namespace Antl.WebServer.Dtos
 {
@@ -12,6 +12,7 @@ namespace Antl.WebServer.Dtos
         public string ImagePath { get; set; }
         public DateTime? MainDateTime { get; set; }
         public string Location { get; set; }
-        public ICollection<EventDate> EventDates { get; set; }
+        public bool IsOwner { get; set; }
+        public ICollection<EventDateDto> EventDates { get; set; }
     }
 }

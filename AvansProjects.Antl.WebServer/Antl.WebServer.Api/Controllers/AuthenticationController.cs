@@ -1,5 +1,7 @@
 ﻿using Antl.WebServer.Dtos;
+using Antl.WebServer.Entities;
 using Antl.WebServer.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -9,9 +11,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using AgileObjects.AgileMapper;
-using Antl.WebServer.Entities;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Antl.WebServer.Api.Controllers
 {
@@ -36,9 +35,9 @@ namespace Antl.WebServer.Api.Controllers
             if (!ModelState.IsValid || registerDto == null)
                 return BadRequest(ModelState);
 
-            await _authenticationHandlerServiceAsync.RegisterAsync(registerDto).ConfigureAwait(true);
+            var result = await _authenticationHandlerServiceAsync.RegisterAsync(registerDto).ConfigureAwait(true);
 
-            return new OkObjectResult("Account created");
+            return new OkObjectResult(result);
         }
 
         [AllowAnonymous]
@@ -49,9 +48,8 @@ namespace Antl.WebServer.Api.Controllers
                 return BadRequest(ModelState);
 
             var result = await _authenticationHandlerServiceAsync.SignInAsync(signInRequest).ConfigureAwait(true);
-            if (!result) throw new UnauthorizedAccessException("Invalid login attempt");
-
-            ApplicationUser user = await _authenticationHandlerServiceAsync.GetUserAsync(signInRequest.UserName).ConfigureAwait(true);
+            if (!result) return BadRequest("Unable to login");
+            var user = await _authenticationHandlerServiceAsync.GetUserAsync(signInRequest.UserName).ConfigureAwait(true);
 
             return Ok(RequestToken(user));
         }
@@ -63,7 +61,7 @@ namespace Antl.WebServer.Api.Controllers
             return new OkObjectResult("Sign out Successful");
         }
 
-        private string RequestToken(ApplicationUser user)
+        private string RequestToken(IEntity user)
         {
             var claims = new[]
             {
@@ -74,10 +72,15 @@ namespace Antl.WebServer.Api.Controllers
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                issuer: "http://localhost:44362/api",
-                audience: "http://localhost:44362/api",
-                claims: claims,
-                expires: DateTime.Now.AddMinutes(5),
+#if DEBUG
+                "http://localhost:64151",
+                "http://localhost:64151",
+#else
+                "https://antlwebserver.azurewebsites.net",
+                "https://antlwebserver.azurewebsites.net",
+#endif
+                claims,
+                expires: DateTime.MaxValue,
                 signingCredentials: credentials
             );
 

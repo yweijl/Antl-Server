@@ -12,6 +12,11 @@ namespace Antl.WebServer.Entities
         public string ImagePath { get; set; }
         public DateTime? MainDateTime { get; set; }
         public string Location { get; set; }
+        public bool IsOwner { get; set; }
+        public bool? IsDeleted { get; set; }
+        public int? EventOwnerId { get; set; }
+        public int  Hash { get; set; }
+        public virtual ApplicationUser EventOwner { get; set; }
         public virtual ICollection<EventDate> EventDates { get; set; }
     }
 }
