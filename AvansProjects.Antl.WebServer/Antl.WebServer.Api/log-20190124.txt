@@ -1,0 +1,189 @@
+2019-01-24 13:56:03.154 +01:00 [Information] Getting the motors running...
+2019-01-24 13:56:10.040 +01:00 [Information] User profile is available. Using '"C:\Users\weijl\AppData\Local\ASP.NET\DataProtection-Keys"' as key repository and Windows DPAPI to encrypt keys at rest.
+2019-01-24 13:56:11.514 +01:00 [Information] Entity Framework Core "2.1.4-rtm-31024" initialized '"AntlContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-01-24 13:56:34.164 +01:00 [Information] Executed DbCommand ("3,456"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[ExternalId], [a].[FirstName], [a].[LastName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]"
+2019-01-24 13:56:38.568 +01:00 [Information] Request starting HTTP/1.1 DEBUG http://localhost:64151/  0
+2019-01-24 13:56:38.568 +01:00 [Information] Request starting HTTP/1.1 GET http://localhost:44382/  
+2019-01-24 13:56:38.734 +01:00 [Information] Request finished in 166.3677ms 200 
+2019-01-24 13:56:38.804 +01:00 [Information] Request finished in 237.306ms 301 
+2019-01-24 13:56:38.914 +01:00 [Information] Request starting HTTP/1.1 GET http://localhost:44382/index.html  
+2019-01-24 13:56:39.120 +01:00 [Information] Request finished in 206.6358ms 200 text/html
+2019-01-24 13:56:39.384 +01:00 [Information] Request starting HTTP/1.1 GET http://localhost:44382/swagger-ui.css  
+2019-01-24 13:56:39.399 +01:00 [Information] Request starting HTTP/1.1 GET http://localhost:44382/swagger-ui-bundle.js  
+2019-01-24 13:56:39.477 +01:00 [Information] Sending file. Request path: '"/swagger-ui.css"'. Physical path: '"N/A"'
+2019-01-24 13:56:39.487 +01:00 [Information] Request finished in 102.5106ms 200 text/css
+2019-01-24 13:56:39.536 +01:00 [Information] Sending file. Request path: '"/swagger-ui-bundle.js"'. Physical path: '"N/A"'
+2019-01-24 13:56:39.537 +01:00 [Information] Request finished in 137.9018ms 200 application/javascript
+2019-01-24 13:56:39.615 +01:00 [Information] Request starting HTTP/1.1 GET http://localhost:44382/swagger-ui-standalone-preset.js  
+2019-01-24 13:56:39.634 +01:00 [Information] Sending file. Request path: '"/swagger-ui-standalone-preset.js"'. Physical path: '"N/A"'
+2019-01-24 13:56:39.634 +01:00 [Information] Request finished in 19.5573ms 200 application/javascript
+2019-01-24 13:56:40.353 +01:00 [Information] Request starting HTTP/1.1 GET http://localhost:44382/swagger/v1/swagger.json  
+2019-01-24 13:56:40.490 +01:00 [Information] Request starting HTTP/1.1 GET http://localhost:44382/favicon-32x32.png  
+2019-01-24 13:56:40.492 +01:00 [Information] Sending file. Request path: '"/favicon-32x32.png"'. Physical path: '"N/A"'
+2019-01-24 13:56:40.492 +01:00 [Information] Request finished in 2.0852ms 200 image/png
+2019-01-24 13:56:40.513 +01:00 [Information] Request starting HTTP/1.1 GET http://localhost:44382/favicon-16x16.png  
+2019-01-24 13:56:40.514 +01:00 [Information] Sending file. Request path: '"/favicon-16x16.png"'. Physical path: '"N/A"'
+2019-01-24 13:56:40.514 +01:00 [Information] Request finished in 0.87ms 200 image/png
+2019-01-24 13:56:41.205 +01:00 [Information] Request finished in 851.6229ms 200 application/json;charset=utf-8
+2019-01-24 13:56:45.195 +01:00 [Information] Request starting HTTP/1.1 POST http://localhost:64151/api application/json 59
+2019-01-24 13:56:45.290 +01:00 [Information] Request finished in 95.1164ms 307 
+2019-01-24 13:56:45.309 +01:00 [Information] Connection id ""0HLK1VDGGB05A"", Request id ""0HLK1VDGGB05A:00000006"": the application completed without reading the entire request body.
+2019-01-24 13:56:45.359 +01:00 [Information] Request starting HTTP/1.1 POST http://localhost:44382/api application/json 59
+2019-01-24 13:56:45.517 +01:00 [Information] Route matched with "{action = \"SignIn\", controller = \"Authentication\"}". Executing action "Antl.WebServer.Api.Controllers.AuthenticationController.SignIn (Antl.WebServer.Api)"
+2019-01-24 13:56:45.788 +01:00 [Information] Executing action method "Antl.WebServer.Api.Controllers.AuthenticationController.SignIn (Antl.WebServer.Api)" with arguments (["Antl.WebServer.Dtos.SignInDto"]) - Validation state: Valid
+2019-01-24 13:56:45.810 +01:00 [Information] Entity Framework Core "2.1.4-rtm-31024" initialized '"AntlContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-01-24 13:56:46.010 +01:00 [Information] Executed DbCommand ("94"ms) [Parameters=["@__normalizedUserName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[Email], [u].[EmailConfirmed], [u].[ExternalId], [u].[FirstName], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UserName]
+FROM [AspNetUsers] AS [u]
+WHERE [u].[NormalizedUserName] = @__normalizedUserName_0"
+2019-01-24 13:56:46.176 +01:00 [Information] Executed DbCommand ("17"ms) [Parameters=["@__user_Id_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [uc].[Id], [uc].[ClaimType], [uc].[ClaimValue], [uc].[UserId]
+FROM [AspNetUserClaims] AS [uc]
+WHERE [uc].[UserId] = @__user_Id_0"
+2019-01-24 13:56:46.271 +01:00 [Information] Executed DbCommand ("43"ms) [Parameters=["@__userId_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [role].[Name]
+FROM [AspNetUserRoles] AS [userRole]
+INNER JOIN [AspNetRoles] AS [role] ON [userRole].[RoleId] = [role].[Id]
+WHERE [userRole].[UserId] = @__userId_0"
+2019-01-24 13:56:46.305 +01:00 [Information] Executed DbCommand ("4"ms) [Parameters=["@__normalizedName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[Name], [r].[NormalizedName]
+FROM [AspNetRoles] AS [r]
+WHERE [r].[NormalizedName] = @__normalizedName_0"
+2019-01-24 13:56:46.344 +01:00 [Information] Executed DbCommand ("7"ms) [Parameters=["@__role_Id_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [rc].[ClaimType], [rc].[ClaimValue]
+FROM [AspNetRoleClaims] AS [rc]
+WHERE [rc].[RoleId] = @__role_Id_0"
+2019-01-24 13:56:46.368 +01:00 [Information] AuthenticationScheme: "Identity.Application" signed in.
+2019-01-24 13:56:46.378 +01:00 [Information] Executed DbCommand ("5"ms) [Parameters=["@__normalizedUserName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[Email], [u].[EmailConfirmed], [u].[ExternalId], [u].[FirstName], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UserName]
+FROM [AspNetUsers] AS [u]
+WHERE [u].[NormalizedUserName] = @__normalizedUserName_0"
+2019-01-24 13:56:46.397 +01:00 [Information] Executed action method "Antl.WebServer.Api.Controllers.AuthenticationController.SignIn (Antl.WebServer.Api)", returned result "Microsoft.AspNetCore.Mvc.OkObjectResult" in 598.2429ms.
+2019-01-24 13:56:46.415 +01:00 [Information] Executing ObjectResult, writing value of type '"System.String"'.
+2019-01-24 13:56:46.430 +01:00 [Information] Executed action "Antl.WebServer.Api.Controllers.AuthenticationController.SignIn (Antl.WebServer.Api)" in 907.1218ms
+2019-01-24 13:56:46.433 +01:00 [Information] Request finished in 1073.7539ms 200 text/plain; charset=utf-8
+2019-01-24 13:57:45.098 +01:00 [Information] Request starting HTTP/1.1 POST http://localhost:64151/api/event application/json 297
+2019-01-24 13:57:45.099 +01:00 [Information] Request finished in 1.1246ms 307 
+2019-01-24 13:57:45.100 +01:00 [Information] Connection id ""0HLK1VDGGB05A"", Request id ""0HLK1VDGGB05A:00000007"": the application completed without reading the entire request body.
+2019-01-24 13:57:45.149 +01:00 [Information] Request starting HTTP/1.1 POST http://localhost:44382/api/event application/json 297
+2019-01-24 13:57:45.156 +01:00 [Information] Route matched with "{action = \"PostAsync\", controller = \"Event\"}". Executing action "Antl.WebServer.Api.Controllers.EventController.PostAsync (Antl.WebServer.Api)"
+2019-01-24 13:57:45.175 +01:00 [Information] Authorization was successful.
+2019-01-24 13:57:45.177 +01:00 [Information] Entity Framework Core "2.1.4-rtm-31024" initialized '"AntlContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-01-24 13:57:45.301 +01:00 [Information] Executing action method "Antl.WebServer.Api.Controllers.EventController.PostAsync (Antl.WebServer.Api)" with arguments (["Antl.WebServer.Dtos.EventDto"]) - Validation state: Valid
+2019-01-24 13:58:24.662 +01:00 [Information] Executed DbCommand ("5"ms) [Parameters=["@__userId_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(2) [x].[Id], [x].[AccessFailedCount], [x].[ConcurrencyStamp], [x].[Email], [x].[EmailConfirmed], [x].[ExternalId], [x].[FirstName], [x].[LastName], [x].[LockoutEnabled], [x].[LockoutEnd], [x].[NormalizedEmail], [x].[NormalizedUserName], [x].[PasswordHash], [x].[PhoneNumber], [x].[PhoneNumberConfirmed], [x].[SecurityStamp], [x].[TwoFactorEnabled], [x].[UserName]
+FROM [AspNetUsers] AS [x]
+WHERE [x].[Id] = @__userId_0"
+2019-01-24 13:58:56.493 +01:00 [Information] Executed action "Antl.WebServer.Api.Controllers.EventController.PostAsync (Antl.WebServer.Api)" in 71337.2848ms
+2019-01-24 13:58:57.350 +01:00 [Error] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: The instance of entity type 'ApplicationUser' cannot be tracked because another instance with the same key value for {'Id'} is already being tracked. When attaching existing entities, ensure that only one entity instance with a given key value is attached. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see the conflicting key values.
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.IdentityMap`1.ThrowIdentityConflict(InternalEntityEntry entry)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.IdentityMap`1.Add(TKey key, InternalEntityEntry entry, Boolean updateDuplicate)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.StartTracking(InternalEntityEntry entry)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntry.SetEntityState(EntityState oldState, EntityState newState, Boolean acceptChanges)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntry.SetEntityStateAsync(EntityState entityState, Boolean acceptChanges, Nullable`1 forceStateWhenUnknownKey, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityGraphAttacher.PaintActionAsync(EntityEntryGraphNode node, Boolean force, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityEntryGraphIterator.TraverseGraphAsync[TState](EntityEntryGraphNode node, TState state, Func`4 handleNode, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityEntryGraphIterator.TraverseGraphAsync[TState](EntityEntryGraphNode node, TState state, Func`4 handleNode, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SetEntityStateAsync(InternalEntityEntry entry, EntityState entityState, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.AddAsync[TEntity](TEntity entity, CancellationToken cancellationToken)
+   at Antl.WebServer.Repositories.GenericRepository`1.AddAsync(TEntity entity) in C:\projects\Avans\Antl-Webserver\AvansProjects.Antl.WebServer\Antl.WebServer.Repositories\GenericRepository.cs:line 28
+   at Antl.WebServer.Services.GenericServiceAsync`2.AddAsync(TDto dto) in C:\projects\Avans\Antl-Webserver\AvansProjects.Antl.WebServer\Antl.WebServer.Services\GenericServiceAsync.cs:line 27
+   at Antl.WebServer.Services.EventService.AddAsync(EventDto dto, Int32 userId) in C:\projects\Avans\Antl-Webserver\AvansProjects.Antl.WebServer\Antl.WebServer.Services\EventService.cs:line 29
+   at Antl.WebServer.Api.Controllers.EventController.PostAsync(EventDto eventDto) in C:\projects\Avans\Antl-Webserver\AvansProjects.Antl.WebServer\Antl.WebServer.Api\Controllers\EventController.cs:line 26
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2019-01-24 13:58:57.620 +01:00 [Information] Request finished in 72470.5636ms 500 text/html; charset=utf-8
+2019-01-24 14:00:11.292 +01:00 [Information] Getting the motors running...
+2019-01-24 14:00:12.777 +01:00 [Information] User profile is available. Using '"C:\Users\weijl\AppData\Local\ASP.NET\DataProtection-Keys"' as key repository and Windows DPAPI to encrypt keys at rest.
+2019-01-24 14:00:14.046 +01:00 [Information] Entity Framework Core "2.1.4-rtm-31024" initialized '"AntlContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-01-24 14:00:20.062 +01:00 [Information] Executed DbCommand ("26"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[ExternalId], [a].[FirstName], [a].[LastName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]"
+2019-01-24 14:00:20.679 +01:00 [Information] Request starting HTTP/1.1 GET http://localhost:44382/index.html  
+2019-01-24 14:00:20.679 +01:00 [Information] Request starting HTTP/1.1 DEBUG http://localhost:64151/  0
+2019-01-24 14:00:20.724 +01:00 [Information] Request finished in 41.7593ms 200 
+2019-01-24 14:00:20.848 +01:00 [Information] Request finished in 170.0115ms 200 text/html
+2019-01-24 14:00:21.846 +01:00 [Information] Request starting HTTP/1.1 GET http://localhost:44382/swagger/v1/swagger.json  
+2019-01-24 14:00:22.482 +01:00 [Information] Request finished in 635.8907ms 200 application/json;charset=utf-8
+2019-01-24 14:00:35.348 +01:00 [Information] Request starting HTTP/1.1 POST http://localhost:64151/api application/json 59
+2019-01-24 14:00:35.417 +01:00 [Information] Request finished in 69.0388ms 307 
+2019-01-24 14:00:35.428 +01:00 [Information] Request starting HTTP/1.1 POST http://localhost:44382/api application/json 59
+2019-01-24 14:00:35.433 +01:00 [Information] Connection id ""0HLK1VFIN4CH5"", Request id ""0HLK1VFIN4CH5:00000002"": the application completed without reading the entire request body.
+2019-01-24 14:00:35.565 +01:00 [Information] Route matched with "{action = \"SignIn\", controller = \"Authentication\"}". Executing action "Antl.WebServer.Api.Controllers.AuthenticationController.SignIn (Antl.WebServer.Api)"
+2019-01-24 14:00:35.827 +01:00 [Information] Executing action method "Antl.WebServer.Api.Controllers.AuthenticationController.SignIn (Antl.WebServer.Api)" with arguments (["Antl.WebServer.Dtos.SignInDto"]) - Validation state: Valid
+2019-01-24 14:00:35.853 +01:00 [Information] Entity Framework Core "2.1.4-rtm-31024" initialized '"AntlContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-01-24 14:00:35.990 +01:00 [Information] Executed DbCommand ("30"ms) [Parameters=["@__normalizedUserName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[Email], [u].[EmailConfirmed], [u].[ExternalId], [u].[FirstName], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UserName]
+FROM [AspNetUsers] AS [u]
+WHERE [u].[NormalizedUserName] = @__normalizedUserName_0"
+2019-01-24 14:00:36.208 +01:00 [Information] Executed DbCommand ("32"ms) [Parameters=["@__user_Id_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [uc].[Id], [uc].[ClaimType], [uc].[ClaimValue], [uc].[UserId]
+FROM [AspNetUserClaims] AS [uc]
+WHERE [uc].[UserId] = @__user_Id_0"
+2019-01-24 14:00:36.265 +01:00 [Information] Executed DbCommand ("8"ms) [Parameters=["@__userId_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [role].[Name]
+FROM [AspNetUserRoles] AS [userRole]
+INNER JOIN [AspNetRoles] AS [role] ON [userRole].[RoleId] = [role].[Id]
+WHERE [userRole].[UserId] = @__userId_0"
+2019-01-24 14:00:36.297 +01:00 [Information] Executed DbCommand ("3"ms) [Parameters=["@__normalizedName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[Name], [r].[NormalizedName]
+FROM [AspNetRoles] AS [r]
+WHERE [r].[NormalizedName] = @__normalizedName_0"
+2019-01-24 14:00:36.336 +01:00 [Information] Executed DbCommand ("3"ms) [Parameters=["@__role_Id_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [rc].[ClaimType], [rc].[ClaimValue]
+FROM [AspNetRoleClaims] AS [rc]
+WHERE [rc].[RoleId] = @__role_Id_0"
+2019-01-24 14:00:36.366 +01:00 [Information] AuthenticationScheme: "Identity.Application" signed in.
+2019-01-24 14:00:36.377 +01:00 [Information] Executed DbCommand ("5"ms) [Parameters=["@__normalizedUserName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[Email], [u].[EmailConfirmed], [u].[ExternalId], [u].[FirstName], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UserName]
+FROM [AspNetUsers] AS [u]
+WHERE [u].[NormalizedUserName] = @__normalizedUserName_0"
+2019-01-24 14:00:36.398 +01:00 [Information] Executed action method "Antl.WebServer.Api.Controllers.AuthenticationController.SignIn (Antl.WebServer.Api)", returned result "Microsoft.AspNetCore.Mvc.OkObjectResult" in 556.8203ms.
+2019-01-24 14:00:36.423 +01:00 [Information] Executing ObjectResult, writing value of type '"System.String"'.
+2019-01-24 14:00:36.439 +01:00 [Information] Executed action "Antl.WebServer.Api.Controllers.AuthenticationController.SignIn (Antl.WebServer.Api)" in 869.5669ms
+2019-01-24 14:00:36.457 +01:00 [Information] Request finished in 1029.0687ms 200 text/plain; charset=utf-8
+2019-01-24 14:00:38.476 +01:00 [Information] Request starting HTTP/1.1 POST http://localhost:64151/api/event application/json 297
+2019-01-24 14:00:38.477 +01:00 [Information] Request finished in 0.9694ms 307 
+2019-01-24 14:00:38.478 +01:00 [Information] Connection id ""0HLK1VFIN4CH5"", Request id ""0HLK1VFIN4CH5:00000003"": the application completed without reading the entire request body.
+2019-01-24 14:00:38.492 +01:00 [Information] Request starting HTTP/1.1 POST http://localhost:44382/api/event application/json 297
+2019-01-24 14:00:38.502 +01:00 [Information] Route matched with "{action = \"PostAsync\", controller = \"Event\"}". Executing action "Antl.WebServer.Api.Controllers.EventController.PostAsync (Antl.WebServer.Api)"
+2019-01-24 14:00:38.515 +01:00 [Information] Authorization was successful.
+2019-01-24 14:00:38.517 +01:00 [Information] Entity Framework Core "2.1.4-rtm-31024" initialized '"AntlContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-01-24 14:00:38.551 +01:00 [Information] Executing action method "Antl.WebServer.Api.Controllers.EventController.PostAsync (Antl.WebServer.Api)" with arguments (["Antl.WebServer.Dtos.EventDto"]) - Validation state: Valid
+2019-01-24 14:00:39.419 +01:00 [Information] Executed DbCommand ("30"ms) [Parameters=["@p0='?' (Size = 4000), @p1='?' (DbType = Int32), @p2='?' (Size = 4000), @p3='?' (DbType = Int32), @p4='?' (Size = 4000), @p5='?', @p6='?' (DbType = Boolean), @p7='?' (Size = 4000), @p8='?' (DbType = DateTime2), @p9='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SET NOCOUNT ON;
+INSERT INTO [Events] ([Description], [EventOwnerId], [ExternalId], [Hash], [ImagePath], [IsDeleted], [IsOwner], [Location], [MainDateTime], [Name])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9);
+SELECT [Id]
+FROM [Events]
+WHERE @@ROWCOUNT = 1 AND [Id] = scope_identity();"
+2019-01-24 14:00:39.441 +01:00 [Information] Executed DbCommand ("4"ms) [Parameters=["@p10='?' (DbType = DateTime2), @p11='?' (DbType = Int32), @p12='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SET NOCOUNT ON;
+INSERT INTO [EventDates] ([DateTime], [EventId], [ExternalId])
+VALUES (@p10, @p11, @p12);
+SELECT [Id]
+FROM [EventDates]
+WHERE @@ROWCOUNT = 1 AND [Id] = scope_identity();"
+2019-01-24 14:00:54.911 +01:00 [Information] Executed action method "Antl.WebServer.Api.Controllers.EventController.PostAsync (Antl.WebServer.Api)", returned result "Microsoft.AspNetCore.Mvc.OkObjectResult" in 16360.5802ms.
+2019-01-24 14:00:54.912 +01:00 [Information] Executing ObjectResult, writing value of type '"Antl.WebServer.Dtos.EventSyncDto"'.
+2019-01-24 14:00:54.922 +01:00 [Information] Executed action "Antl.WebServer.Api.Controllers.EventController.PostAsync (Antl.WebServer.Api)" in 16419.8447ms
+2019-01-24 14:00:54.922 +01:00 [Information] Request finished in 16429.7167ms 200 application/json; charset=utf-8

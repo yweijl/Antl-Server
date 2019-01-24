@@ -24,7 +24,7 @@ namespace Antl.WebServer.Services
         public async Task<EventSyncDto> AddAsync(EventDto dto, int userId)
         {
             var internalDto = Mapper.Map(dto).ToANew<InternalEventDto>();
-            internalDto.EventOwner = await _userRepository.GetAsync(x => x.Id == userId).ConfigureAwait(false);
+            internalDto.EventOwnerId = userId;
             internalDto.Hash = internalDto.GetHashCode();
             var @event = await base.AddAsync(internalDto).ConfigureAwait(true);
             return new EventSyncDto
